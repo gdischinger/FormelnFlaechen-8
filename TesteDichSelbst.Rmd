@@ -26,7 +26,7 @@ Bearbeite folgende Aufgaben. Du brauchst dazu **einen Zettel und einen Stift**! 
 <!-- <iframe scrolling="yes" title="Abschlussquiz" src="./iframes/Aqui.html" width="1302px" height="632px" style="zoom: 0.75; -moz-transform: scale(0.65); -moz-transform-origin: 0 0; -o-transform: scale(1); -o-transform-origin: 0 0; -webkit-transform: scale(1); -webkit-transform-origin: 0 0;"> </iframe> -->
 
 
-```{r, echo=FALSE, out.width="1.5"}
+```{r, echo=FALSE}
 knitr::include_url("./iframes/Aqui.html") 
 ```
 
