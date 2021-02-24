@@ -23,7 +23,7 @@ checkliste %>% kbl() %>%  kable_styling()
 Bearbeite folgende Aufgaben. Du brauchst dazu **einen Zettel und einen Stift**! Beachte bitte, dass auch **mehrere Lösungen richtig** sein können. Überprüfe am Ende deine Ergebnisse und **stelle deine Rechnungen in OneNote ein** - im Abschnitt Hausaufgaben auf einer Seite mit dem Titel 24. Februar. Manche Aufgaben kannst du vielleicht ohne Zwischenschritte lösen, dann müssen sie auch nicht auf deinem Schmierpapier vermerkt sein. Andere Aufgaben wirst du aber nicht ohne Zwischenschritte lösen können....
 
 
-<iframe scrolling="yes" title="Abschlussquiz" src="./iframes/Aqui.html" width="1302px" height="632px" style="zoom: 0.75; -moz-transform: scale(0.75); -moz-transform-origin: 0 0; -o-transform: scale(1); -o-transform-origin: 0 0; -webkit-transform: scale(1); -webkit-transform-origin: 0 0;"> </iframe>
+<iframe scrolling="yes" title="Abschlussquiz" src="./iframes/Aqui.html" width="1600px" height="800px" style="zoom: 0.75; -moz-transform: scale(0.75); -moz-transform-origin: 0 0; -o-transform: scale(1); -o-transform-origin: 0 0; -webkit-transform: scale(1); -webkit-transform-origin: 0 0;"> </iframe>
 
 
 <!-- ```{r, echo=FALSE} -->
