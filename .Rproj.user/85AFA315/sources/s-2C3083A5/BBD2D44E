@@ -1,27 +1,27 @@
 {
-    "id": "8896B370",
+    "id": "BBD2D44E",
     "path": "~/github/Lernpfade/8_FormelnUndFlächen/FormelnFlaechen-8/Dreieck.Rmd",
     "project_path": "Dreieck.Rmd",
     "type": "r_markdown",
-    "hash": "2429261662",
+    "hash": "3070489468",
     "contents": "",
     "dirty": false,
-    "created": 1614146248728.0,
+    "created": 1614184355275.0,
     "source_on_save": false,
-    "relative_order": 3,
+    "relative_order": 4,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "39,117",
-        "scrollLine": "30"
+        "cursorPosition": "44,109",
+        "scrollLine": "37"
     },
     "folds": "",
-    "lastKnownWriteTime": 1614146370,
+    "lastKnownWriteTime": 1614184492,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1614146370186,
+    "last_content_update": 1614184492532,
     "read_only": false,
     "read_only_alternatives": []
 }

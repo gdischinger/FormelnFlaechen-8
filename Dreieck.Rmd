@@ -38,3 +38,8 @@ Hier einmal in Worten: Den Flächeninhalt $A$ eines Dreiecks erhältst du, indem
 Natürlich erhält man denselben Flächeninhalt, wenn man sich für eine andere Grundseite und die dazugehörige Höhe entscheidet. Also:
 
 $$A_{Dreieck} = {1 \over 2} \cdot a \cdot h_{a} = {1 \over 2} \cdot b \cdot h_{b} = {1 \over 2} \cdot c \cdot h_{c}$$
+
+
+### Aufgaben {-}
+
+Bevor du weiterliest, geht es hier zu den [Aufgaben](https://gdischinger.github.io/FF8Extrablatt/Dreieck.html)!
