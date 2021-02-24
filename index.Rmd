@@ -54,7 +54,7 @@ library("webex")
 Ein Distanzlernpfad zum Thema *Formeln und Flächen* 
 
 
-Hier geht's zur bisherigen [Seite]("https://gdischinger.github.io/Mathe_8a/03FormelnErstellen/Fl%C3%A4chenberechnungErinnerung.html"). Dort ist alles unverändert...
+Hier geht's zur bisherigen [Seite](https://gdischinger.github.io/Mathe_8d/03FormelnErstellen/FlächenberechnungErinnerung.html). Dort ist alles unverändert...
 
 ```{r, eval=knitr::opts_knit$get("rmarkdown.pandoc.to") == "html", results='asis', echo=FALSE}
 cat('<hr style="background-color:#3C6690;height:2px">')
