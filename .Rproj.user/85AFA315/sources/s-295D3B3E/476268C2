@@ -3,7 +3,7 @@
     "path": "~/github/Lernpfade/8_FormelnUndFlächen/FormelnFlaechen-8/index.Rmd",
     "project_path": "index.Rmd",
     "type": "r_markdown",
-    "hash": "1591866619",
+    "hash": "3877747693",
     "contents": "",
     "dirty": false,
     "created": 1614152575501.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "56,125",
-        "scrollLine": "45"
+        "cursorPosition": "1,27",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1614152799,
+    "lastKnownWriteTime": 1614152961,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1614152799954,
+    "last_content_update": 1614152961328,
     "read_only": false,
     "read_only_alternatives": []
 }
