@@ -1,0 +1,9 @@
+# Vieleck
+
+![](./Bilder/VieleckZerlegen.png)
+
+Möchte man den Flächeninhalt eines beliebigen Vielecks bestimmen, so kann man folgendermaßen vorgehen: 
+
+  1. Zunächst zerlegt man die Vielecksfläche in Teilflächen (Rechtecke, Quadrate, Trapeze, Parallelogramme, Dreiecke), deren Flächeninhalte man berechnen kann.
+  2. Dann berechnet man die Teilflächeninhalte mit Hilfe der entsprechenden Formeln.
+  3. Abschließend bestimmt man den Flächeninhalt des gegebene Vielecks als Summe der Teilflächeninhalte.
