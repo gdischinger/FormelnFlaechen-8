@@ -3,7 +3,7 @@
     "path": "~/github/Lernpfade/8_FormelnUndFlächen/FormelnFlaechen-8/Dreieck.Rmd",
     "project_path": "Dreieck.Rmd",
     "type": "r_markdown",
-    "hash": "889203316",
+    "hash": "304815122",
     "contents": "",
     "dirty": false,
     "created": 1614531179628.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "331,357",
+        "cursorPosition": "331,331",
         "scrollLine": "317"
     },
     "folds": "",
-    "lastKnownWriteTime": 1614531559,
+    "lastKnownWriteTime": 1614531830,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1614531559208,
+    "last_content_update": 1614531830479,
     "read_only": false,
     "read_only_alternatives": []
 }
