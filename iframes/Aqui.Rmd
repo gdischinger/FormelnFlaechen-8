@@ -1,47 +1,44 @@
 ---
 title: "Überprüfe dein Wissen!"
-output: webex::webex_default
+output: html_document
 ---
 
-```{r setup, include = FALSE}
+
+```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-if (!requireNamespace("webex")) {
-  stop("You must have the 'webex' package installed to knit HTML from this template.\n   devtools::install_github(\"psyteachr/webex\")")
-} else {
-  library("webex")
-}
 ```
 
 
 ```{css, echo=FALSE}
+
 td, tr {
      border-radius: 10px 10px 10px 10px;
      padding: 25px 15px;
      border: 0;
 } 
 
-
 tr:nth-child(odd){ 
   border-radius: 10px 10px 10px 10px;
   background-color: #cae1ff; !important 
 }
 
+
 td:hover { background-color: #dddd; !important }
 
 table {
-    color:black ;
-    /*background-color: #356185 !important;*/
-    background-color: transparent;
+   color:black ;
+   /*background-color: #356185 !important;*/
+   background-color: transparent;
 }
 
 caption {
     color:black;
 }
 
-.book .book-body .page-wrapper .page-inner section.normal table td, .book .book-body .page-wrapper .page-inner section.normal table th {
-    padding: 6px 13px;
-    border: 0;
-}
+# .book .book-body .page-wrapper .page-inner section.normal table td, .book .book-body .page-wrapper .page-inner section.normal table th {
+#     padding: 6px 13px;
+#     border: 0;
+# }
 }
 
 # ✓ {
@@ -52,7 +49,6 @@ caption {
 # 	color: #c00;
 # }
 ```
-
 
 <form id="FFAbschlussquiz">
 <table border=0 cellspacing="0" cellpadding="5">
@@ -554,6 +550,7 @@ caption {
 
 Du hast <span id="ergebnis"> noch keine </span> von <span id="anzahlFragen"> all den </span> Aufgaben richtig gelöst!
 </form>
+
 
 <br><br>
 

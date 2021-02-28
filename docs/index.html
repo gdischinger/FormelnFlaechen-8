@@ -30,7 +30,7 @@
   
   
 
-<link rel="next" href="1-binomische-formeln.html"/>
+<link rel="next" href="1-vorwissen.html"/>
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,6 +51,108 @@
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script>
+
+/* update total correct if #total_correct exists */
+update_total_correct = function() {
+  if (t = document.getElementById("total_correct")) {
+    t.innerHTML =
+      document.getElementsByClassName("correct").length + " of " +
+      document.getElementsByClassName("solveme").length + " correct";
+  }
+}
+
+/* solution button toggling function */
+b_func = function() {
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "");
+  }
+  
+  if (my_answer !== "" & real_answers.includes(my_answer)) {
+    cl.add("correct");
+  } else {
+    cl.remove("correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);  
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("correct");
+    } else {
+      cl.remove("correct");
+    }  
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("correct");
+    }  
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+  
+  /* set up solveme inputs */
+  var solveme = document.getElementsByClassName("solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off"); 
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+    
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+    
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  update_total_correct();
+}
+
+</script>
 
 
 
@@ -77,19 +179,65 @@
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#aktuelles"><i class="fa fa-check"></i>Aktuelles</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#allgemeines"><i class="fa fa-check"></i>Allgemeines</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="1-binomische-formeln.html"><a href="1-binomische-formeln.html"><i class="fa fa-check"></i><b>1</b> Binomische Formeln</a></li>
-<li class="chapter" data-level="2" data-path="2-dreieck.html"><a href="2-dreieck.html"><i class="fa fa-check"></i><b>2</b> Dreieck</a>
+<li class="chapter" data-level="1" data-path="1-vorwissen.html"><a href="1-vorwissen.html"><i class="fa fa-check"></i><b>1</b> Vorwissen</a>
 <ul>
-<li class="chapter" data-level="" data-path="2-dreieck.html"><a href="2-dreieck.html#aufgaben"><i class="fa fa-check"></i>Aufgaben</a></li>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html"><i class="fa fa-check"></i>Terme aufstellen</a>
+<ul>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#was-tun-wenn-ein-term-nicht-genug-ist"><i class="fa fa-check"></i>Was tun, wenn ein Term nicht genug ist?</a></li>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#gesetzmäßigkeiten-die-bei-geometrieaufgaben-oft-genutzt-werden"><i class="fa fa-check"></i>Gesetzmäßigkeiten, die bei Geometrieaufgaben oft genutzt werden</a></li>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#aufgaben"><i class="fa fa-check"></i>Aufgaben</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="3-parallelogramm.html"><a href="3-parallelogramm.html"><i class="fa fa-check"></i><b>3</b> Parallelogramm</a></li>
-<li class="chapter" data-level="4" data-path="4-trapez.html"><a href="4-trapez.html"><i class="fa fa-check"></i><b>4</b> Trapez</a></li>
-<li class="chapter" data-level="5" data-path="5-vieleck.html"><a href="5-vieleck.html"><i class="fa fa-check"></i><b>5</b> Vieleck</a></li>
-<li class="chapter" data-level="6" data-path="6-kreis.html"><a href="6-kreis.html"><i class="fa fa-check"></i><b>6</b> Kreis</a></li>
-<li class="chapter" data-level="7" data-path="7-das-kannst-du-jetzt.html"><a href="7-das-kannst-du-jetzt.html"><i class="fa fa-check"></i><b>7</b> Das kannst du jetzt…</a>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html"><i class="fa fa-check"></i>Terme zusammenfassen</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="7-1-checkliste.html"><a href="7-1-checkliste.html"><i class="fa fa-check"></i><b>7.1</b> Checkliste</a></li>
-<li class="chapter" data-level="7.2" data-path="7-2-abschlussquiz.html"><a href="7-2-abschlussquiz.html"><i class="fa fa-check"></i><b>7.2</b> Abschlussquiz</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#gleichartige-terme-zusammenfassen---3-äpfel-und-4-äpfel-sind-7-äpfel"><i class="fa fa-check"></i>Gleichartige Terme zusammenfassen - 3 Äpfel und 4 Äpfel sind 7 Äpfel</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#produktterme-vereinfachen---hier-wird-nur-multipliziert"><i class="fa fa-check"></i>Produktterme vereinfachen - hier wird nur multipliziert</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#vereinfachen-von-termen---jetzt-wird-auch-addiert-subtrahiert-und-dividiert"><i class="fa fa-check"></i>Vereinfachen von Termen - jetzt wird auch addiert, subtrahiert und dividiert</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausmultiplizieren-von-klammern"><i class="fa fa-check"></i>Ausmultiplizieren von Klammern</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausdividieren-von-klammern"><i class="fa fa-check"></i>Ausdividieren von Klammern</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausklammern-von-faktoren"><i class="fa fa-check"></i>Ausklammern von Faktoren</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#multiplizieren-von-zwei-summen"><i class="fa fa-check"></i>Multiplizieren von zwei Summen</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-binomische-formeln.html"><a href="2-binomische-formeln.html"><i class="fa fa-check"></i><b>2</b> Binomische Formeln</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-1.html"><a href="aufgaben-1.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-dreieck.html"><a href="3-dreieck.html"><i class="fa fa-check"></i><b>3</b> Dreieck</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-2.html"><a href="aufgaben-2.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-parallelogramm.html"><a href="4-parallelogramm.html"><i class="fa fa-check"></i><b>4</b> Parallelogramm</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-3.html"><a href="aufgaben-3.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-trapez.html"><a href="5-trapez.html"><i class="fa fa-check"></i><b>5</b> Trapez</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-4.html"><a href="aufgaben-4.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-vieleck.html"><a href="6-vieleck.html"><i class="fa fa-check"></i><b>6</b> Vieleck</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-5.html"><a href="aufgaben-5.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-kreis.html"><a href="7-kreis.html"><i class="fa fa-check"></i><b>7</b> Kreis</a>
+<ul>
+<li class="chapter" data-level="" data-path="kreisumfang.html"><a href="kreisumfang.html"><i class="fa fa-check"></i>Kreisumfang</a></li>
+<li class="chapter" data-level="" data-path="kreisfläche.html"><a href="kreisfläche.html"><i class="fa fa-check"></i>Kreisfläche</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html"><i class="fa fa-check"></i>Aufgaben</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html#aufgaben-zum-umfang"><i class="fa fa-check"></i>Aufgaben zum Umfang</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html#aufgaben-zum-flächeninhalt"><i class="fa fa-check"></i>Aufgaben zum Flächeninhalt</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html#gemischte-aufgaben"><i class="fa fa-check"></i>Gemischte Aufgaben</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-trainingsraum.html"><a href="8-trainingsraum.html"><i class="fa fa-check"></i><b>8</b> Trainingsraum</a>
+<ul>
+<li class="chapter" data-level="" data-path="übersicht-über-alle-vorgekommenen-formeln.html"><a href="übersicht-über-alle-vorgekommenen-formeln.html"><i class="fa fa-check"></i>Übersicht über alle vorgekommenen Formeln</a></li>
+<li class="chapter" data-level="" data-path="trainingsaufgaben.html"><a href="trainingsaufgaben.html"><i class="fa fa-check"></i>Trainingsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-das-kannst-du-jetzt.html"><a href="9-das-kannst-du-jetzt.html"><i class="fa fa-check"></i><b>9</b> Das kannst du jetzt…</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="9-1-checkliste.html"><a href="9-1-checkliste.html"><i class="fa fa-check"></i><b>9.1</b> Checkliste</a></li>
+<li class="chapter" data-level="9.2" data-path="9-2-abschlussquiz.html"><a href="9-2-abschlussquiz.html"><i class="fa fa-check"></i><b>9.2</b> Abschlussquiz</a></li>
 </ul></li>
 </ul>
 
@@ -140,7 +288,7 @@
         </div>
       </div>
 
-<a href="1-binomische-formeln.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="1-vorwissen.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -182,6 +330,7 @@ gitbook.start({
 "download": null,
 "toc": {
 "collapse": "subsection",
+"scroll_highlighting": true,
 "scroll_highlight": true
 },
 "info": true

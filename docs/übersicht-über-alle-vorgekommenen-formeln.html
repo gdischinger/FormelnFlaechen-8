@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="de" xml:lang="de">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Übersicht über alle vorgekommenen Formeln | Formeln und Flächen</title>
+  <meta name="description" content="Übersicht über alle vorgekommenen Formeln | Formeln und Flächen" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Übersicht über alle vorgekommenen Formeln | Formeln und Flächen" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="./Bilder/tangram.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Übersicht über alle vorgekommenen Formeln | Formeln und Flächen" />
+  
+  
+  <meta name="twitter:image" content="./Bilder/tangram.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="8-trainingsraum.html"/>
+<link rel="next" href="trainingsaufgaben.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script>
+
+/* update total correct if #total_correct exists */
+update_total_correct = function() {
+  if (t = document.getElementById("total_correct")) {
+    t.innerHTML =
+      document.getElementsByClassName("correct").length + " of " +
+      document.getElementsByClassName("solveme").length + " correct";
+  }
+}
+
+/* solution button toggling function */
+b_func = function() {
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "");
+  }
+  
+  if (my_answer !== "" & real_answers.includes(my_answer)) {
+    cl.add("correct");
+  } else {
+    cl.remove("correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);  
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("correct");
+    } else {
+      cl.remove("correct");
+    }  
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("correct");
+    }  
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+  
+  /* set up solveme inputs */
+  var solveme = document.getElementsByClassName("solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off"); 
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+    
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+    
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  update_total_correct();
+}
+
+</script>
+
+
+
+<link rel="stylesheet" href="webex.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="toc.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><a href="https://gdischinger.github.io/FormelnFlaechen-8/"><img src="Bilder/tangram.png" alt="logo" width="60%" height="60%"style="margin: 15px 0 0 0"></a></center></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Was ist das?</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#aktuelles"><i class="fa fa-check"></i>Aktuelles</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#allgemeines"><i class="fa fa-check"></i>Allgemeines</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-vorwissen.html"><a href="1-vorwissen.html"><i class="fa fa-check"></i><b>1</b> Vorwissen</a>
+<ul>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html"><i class="fa fa-check"></i>Terme aufstellen</a>
+<ul>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#was-tun-wenn-ein-term-nicht-genug-ist"><i class="fa fa-check"></i>Was tun, wenn ein Term nicht genug ist?</a></li>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#gesetzmäßigkeiten-die-bei-geometrieaufgaben-oft-genutzt-werden"><i class="fa fa-check"></i>Gesetzmäßigkeiten, die bei Geometrieaufgaben oft genutzt werden</a></li>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#aufgaben"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html"><i class="fa fa-check"></i>Terme zusammenfassen</a>
+<ul>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#gleichartige-terme-zusammenfassen---3-äpfel-und-4-äpfel-sind-7-äpfel"><i class="fa fa-check"></i>Gleichartige Terme zusammenfassen - 3 Äpfel und 4 Äpfel sind 7 Äpfel</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#produktterme-vereinfachen---hier-wird-nur-multipliziert"><i class="fa fa-check"></i>Produktterme vereinfachen - hier wird nur multipliziert</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#vereinfachen-von-termen---jetzt-wird-auch-addiert-subtrahiert-und-dividiert"><i class="fa fa-check"></i>Vereinfachen von Termen - jetzt wird auch addiert, subtrahiert und dividiert</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausmultiplizieren-von-klammern"><i class="fa fa-check"></i>Ausmultiplizieren von Klammern</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausdividieren-von-klammern"><i class="fa fa-check"></i>Ausdividieren von Klammern</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausklammern-von-faktoren"><i class="fa fa-check"></i>Ausklammern von Faktoren</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#multiplizieren-von-zwei-summen"><i class="fa fa-check"></i>Multiplizieren von zwei Summen</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-binomische-formeln.html"><a href="2-binomische-formeln.html"><i class="fa fa-check"></i><b>2</b> Binomische Formeln</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-1.html"><a href="aufgaben-1.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-dreieck.html"><a href="3-dreieck.html"><i class="fa fa-check"></i><b>3</b> Dreieck</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-2.html"><a href="aufgaben-2.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-parallelogramm.html"><a href="4-parallelogramm.html"><i class="fa fa-check"></i><b>4</b> Parallelogramm</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-3.html"><a href="aufgaben-3.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-trapez.html"><a href="5-trapez.html"><i class="fa fa-check"></i><b>5</b> Trapez</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-4.html"><a href="aufgaben-4.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-vieleck.html"><a href="6-vieleck.html"><i class="fa fa-check"></i><b>6</b> Vieleck</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-5.html"><a href="aufgaben-5.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-kreis.html"><a href="7-kreis.html"><i class="fa fa-check"></i><b>7</b> Kreis</a>
+<ul>
+<li class="chapter" data-level="" data-path="kreisumfang.html"><a href="kreisumfang.html"><i class="fa fa-check"></i>Kreisumfang</a></li>
+<li class="chapter" data-level="" data-path="kreisfläche.html"><a href="kreisfläche.html"><i class="fa fa-check"></i>Kreisfläche</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html"><i class="fa fa-check"></i>Aufgaben</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html#aufgaben-zum-umfang"><i class="fa fa-check"></i>Aufgaben zum Umfang</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html#aufgaben-zum-flächeninhalt"><i class="fa fa-check"></i>Aufgaben zum Flächeninhalt</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html#gemischte-aufgaben"><i class="fa fa-check"></i>Gemischte Aufgaben</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-trainingsraum.html"><a href="8-trainingsraum.html"><i class="fa fa-check"></i><b>8</b> Trainingsraum</a>
+<ul>
+<li class="chapter" data-level="" data-path="übersicht-über-alle-vorgekommenen-formeln.html"><a href="übersicht-über-alle-vorgekommenen-formeln.html"><i class="fa fa-check"></i>Übersicht über alle vorgekommenen Formeln</a></li>
+<li class="chapter" data-level="" data-path="trainingsaufgaben.html"><a href="trainingsaufgaben.html"><i class="fa fa-check"></i>Trainingsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-das-kannst-du-jetzt.html"><a href="9-das-kannst-du-jetzt.html"><i class="fa fa-check"></i><b>9</b> Das kannst du jetzt…</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="9-1-checkliste.html"><a href="9-1-checkliste.html"><i class="fa fa-check"></i><b>9.1</b> Checkliste</a></li>
+<li class="chapter" data-level="9.2" data-path="9-2-abschlussquiz.html"><a href="9-2-abschlussquiz.html"><i class="fa fa-check"></i><b>9.2</b> Abschlussquiz</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formeln und Flächen</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="übersicht-über-alle-vorgekommenen-formeln" class="section level2 unnumbered">
+<h2>Übersicht über alle vorgekommenen Formeln</h2>
+<style type="text/css">
+.box {
+        display: flex;
+      }
+
+      .box > * {
+        flex: 1 1 0;
+      }
+</style>
+<style type="text/css">
+.flex { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+</style>
+<p><br></p>
+<script language="javascript">
+function toggle(num) {
+var ele = document.getElementById("toggleText" + num);
+var text = document.getElementById("displayText" + num);
+if(ele.style.display == "block") {
+ele.style.display = "none";
+text.innerHTML = "show";
+}
+else {
+ele.style.display = "block";
+text.innerHTML = "hide";
+}
+}
+</script>
+<div class="box">
+<div>
+<p><strong>Binomische Formeln</strong></p>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(11);">erste binomische Formel</a>
+<div id="toggleText11" style="display: none">
+<p><span class="math inline">\((a+b)^2= a^2 + 2ab +b ²\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(2);">zweite binomische Formel</a>
+<div id="toggleText2" style="display: none">
+<p><span class="math inline">\((a-b)^2= a^2 - 2ab +b ²\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(16);">dritte binomische Formel</a>
+<div id="toggleText16" style="display: none">
+<p><span class="math inline">\((a+b)(a-b)=a^2 - b^2\)</span></p>
+</div>
+<p><br></p>
+<p><strong>Dreieck</strong></p>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(13);">Fläche</a>
+<div id="toggleText13" style="display: none">
+<p><span class="math inline">\(A = {1\over 2} \cdot g \cdot h\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(20);">Grundseite</a>
+<div id="toggleText20" style="display: none">
+<p><span class="math inline">\(g = {2A \over h}\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(4);">Höhe</a>
+<div id="toggleText4" style="display: none">
+<p><span class="math inline">\(h={2\cdot A \over g}\)</span></p>
+</div>
+<p><br></p>
+<p><strong>Trapez</strong></p>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(18);">Fläche</a>
+<div id="toggleText18" style="display: none">
+<p><span class="math inline">\(A = {a+c \over 2} \cdot h\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(8);">Höhe</a>
+<div id="toggleText8" style="display: none">
+<p><span class="math inline">\(h = {2 \cdot A \over a+c}\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(6);">Summe der beiden parallelen Seiten</a>
+<div id="toggleText6" style="display: none">
+<p><span class="math inline">\(a+c= {2\cdot A \over h}\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(21);">Eine der beiden parallelen Seiten</a>
+<div id="toggleText21" style="display: none">
+<p><span class="math inline">\(a = {2\cdot A \over h}-c \quad\)</span> und <span class="math inline">\(\quad c = {2\cdot A \over h}-a\)</span></p>
+</div>
+</div>
+<div>
+<p><strong>Parallelogramm</strong></p>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(1);">Fläche</a>
+<div id="toggleText1" style="display: none">
+<p><span class="math inline">\(A=g\cdot h \quad\quad\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(10);">Grundseite</a>
+<div id="toggleText10" style="display: none">
+<p><span class="math inline">\(g = {A \over h}\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(17);">Höhe</a>
+<div id="toggleText17" style="display: none">
+<p><span class="math inline">\(h= {A \over g}\)</span></p>
+</div>
+<p><br></p>
+<p><strong>Kreis</strong></p>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(15);">Fläche</a>
+<div id="toggleText15" style="display: none">
+<p><span class="math inline">\(A=\pi \cdot r^2\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(5);">Kreisumfang bei gegebenem Radius</a>
+<div id="toggleText5" style="display: none">
+<p><span class="math inline">\(U= 2 \cdot \pi \cdot r\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(9);">Kreisumfang bei gegebenem Durchmesser</a>
+<div id="toggleText9" style="display: none">
+<p><span class="math inline">\(U=d \cdot \pi\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(12);">Durchmesser bei gegebenem Radius</a>
+<div id="toggleText12" style="display: none">
+<p><span class="math inline">\(d = 2 \cdot r\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(19);">Durchmesser bei gegebenem Kreisumfang</a>
+<div id="toggleText19" style="display: none">
+<p><span class="math inline">\(d = {U \over \pi}\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(7);">Radius bei gegebenem Durchmesser</a>
+<div id="toggleText7" style="display: none">
+<p><span class="math inline">\(r = {d \over 2}\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(14);">Radius bei gegebenem Kreisumfang</a>
+<div id="toggleText14" style="display: none">
+<p><span class="math inline">\(r = {U \over 2 \cdot \pi}\)</span></p>
+</div>
+<p><br></p>
+<a id="displayText" href="javascript:toggle(3);">Radius bei gegebener Kreisfläche</a>
+<div id="toggleText3" style="display: none">
+<p><span class="math inline">\(r= \sqrt{A \over \pi}\)</span></p>
+</div>
+</div>
+</div>
+<!-- ## Formeln zuordnen {-}  -->
+<!-- ```{css, echo=FALSE} -->
+<!-- #dropZone, -->
+<!-- #animals { -->
+<!--   display: flex; -->
+<!--   flex-flow: row nowrap; -->
+<!--   justify-content: space-between; -->
+<!--   min-height: 200px; -->
+<!--   margin-bottom: 20px; -->
+<!-- } -->
+<!-- #dropBox1, -->
+<!-- #dropBox2, -->
+<!-- #dropBox3, -->
+<!-- #dropBox4 { -->
+<!--   display: flex; -->
+<!--   flex-flow: column nowrap; -->
+<!--   justify-content: center; -->
+<!--   align-items: center; -->
+<!--   height: 250px; -->
+<!--   width: 250px; -->
+<!--   border: 1px solid #aaaaaa; -->
+<!--   padding: 1rem; -->
+<!-- } -->
+<!-- img { -->
+<!--   height: 200px; -->
+<!--   object-fit: cover; -->
+<!--   width: 200px; -->
+<!-- } -->
+<!-- #meindiv{ -->
+<!--   position: absolute; -->
+<!--   background-color: #f1f1f1; -->
+<!--   border: 1px solid #d3d3d3; -->
+<!--   height: 150px; -->
+<!--   width: 150px; -->
+<!--   text-align: center; -->
+<!-- } -->
+<!-- ``` -->
+<!-- <div id="dropZone"> -->
+<!--   <div -->
+<!--     id="dropBox1" -->
+<!--     ondrop="drop(event)" -->
+<!--     ondragover="allowDrop(event)" -->
+<!--   > -->
+<!--   <p> Trapezfläche </p> -->
+<!--   </div> -->
+<!--   <div -->
+<!--     id="dropBox2" -->
+<!--     ondrop="drop(event)" -->
+<!--     ondragover="allowDrop(event)" -->
+<!--   > -->
+<!--   <p>$A=\pi \cdot r^2$</p> -->
+<!--   </div> -->
+<!--   <div -->
+<!--     id="dropBox3" -->
+<!--     ondrop="drop(event)" -->
+<!--     ondragover="allowDrop(event)" -->
+<!--   > -->
+<!--   <p>$\sqrt{7}$</p> -->
+<!--   </div> -->
+<!--   <div -->
+<!--     id="dropBox4" -->
+<!--     ondrop="drop(event)" -->
+<!--     ondragover="allowDrop(event)" -->
+<!--   > -->
+<!--   <p> Hund </p> -->
+<!--   </div> -->
+<!-- </div> -->
+<!-- <div -->
+<!--   id="animals" -->
+<!--   ondrop="drop(event)" -->
+<!--   ondragover="allowDrop(event)" -->
+<!-- > -->
+<!--   <span  -->
+<!--     id="meindiv" -->
+<!--     draggable="true" -->
+<!--     ondragstart="drag(event)" -->
+<!--   > -->
+<!--   <p> Hier der Text </p> -->
+<!--   </span>  -->
+<!--   <span  -->
+<!--     id="meindiv" -->
+<!--     draggable="true" -->
+<!--     ondragstart="drag(event)" -->
+<!--   > -->
+<!--   <p> So was </p> -->
+<!--   </span>  -->
+<!--   <img -->
+<!--     id="mouse" -->
+<!--     src="https://www.adamspestcontrol.com/cms-files/size-992x992/adams-mouse-600x600.jpg" -->
+<!--     draggable="true" -->
+<!--     ondragstart="drag(event)" -->
+<!--     width="300" -->
+<!--   /> -->
+<!--   <img -->
+<!--     id="fish" -->
+<!--     src="https://cdn.mos.cms.futurecdn.net/uhLVL2jTdtQ7ScXCeoeAU6-650-80.jpg.webp" -->
+<!--     draggable="true" -->
+<!--     ondragstart="drag(event)" -->
+<!--     width="300" -->
+<!--   /> -->
+<!-- </div> -->
+<!-- ```{js, echo=FALSE} -->
+<!-- function allowDrop(event) { -->
+<!--   event.preventDefault(); -->
+<!-- } -->
+<!-- function drag(event) { -->
+<!--   event.dataTransfer.setData("text", event.target.id); -->
+<!-- } -->
+<!-- function drop(event) { -->
+<!--   event.preventDefault(); -->
+<!--   var data = event.dataTransfer.getData("text"); -->
+<!--   event.target.appendChild(document.getElementById(data)); -->
+<!-- } -->
+<!-- ``` -->
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="8-trainingsraum.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="trainingsaufgaben.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlighting": true,
+"scroll_highlight": true
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

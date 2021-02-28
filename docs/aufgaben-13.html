@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="de" xml:lang="de">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Aufgaben | Formeln und Flächen</title>
+  <meta name="description" content="Aufgaben | Formeln und Flächen" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Aufgaben | Formeln und Flächen" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="./Bilder/tangram.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Aufgaben | Formeln und Flächen" />
+  
+  
+  <meta name="twitter:image" content="./Bilder/tangram.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="kreisfläche.html"/>
+<link rel="next" href="8-trainingsraum.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script>
+
+/* update total correct if #total_correct exists */
+update_total_correct = function() {
+  if (t = document.getElementById("total_correct")) {
+    t.innerHTML =
+      document.getElementsByClassName("correct").length + " of " +
+      document.getElementsByClassName("solveme").length + " correct";
+  }
+}
+
+/* solution button toggling function */
+b_func = function() {
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "");
+  }
+  
+  if (my_answer !== "" & real_answers.includes(my_answer)) {
+    cl.add("correct");
+  } else {
+    cl.remove("correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);  
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("correct");
+    } else {
+      cl.remove("correct");
+    }  
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("correct");
+    }  
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+  
+  /* set up solveme inputs */
+  var solveme = document.getElementsByClassName("solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off"); 
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+    
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+    
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  update_total_correct();
+}
+
+</script>
+
+
+
+<link rel="stylesheet" href="webex.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="toc.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><a href="https://gdischinger.github.io/FormelnFlaechen-8/"><img src="Bilder/tangram.png" alt="logo" width="60%" height="60%"style="margin: 15px 0 0 0"></a></center></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Was ist das?</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#aktuelles"><i class="fa fa-check"></i>Aktuelles</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#allgemeines"><i class="fa fa-check"></i>Allgemeines</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-vorwissen.html"><a href="1-vorwissen.html"><i class="fa fa-check"></i><b>1</b> Vorwissen</a>
+<ul>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html"><i class="fa fa-check"></i>Terme aufstellen</a>
+<ul>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#was-tun-wenn-ein-term-nicht-genug-ist"><i class="fa fa-check"></i>Was tun, wenn ein Term nicht genug ist?</a></li>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#gesetzmäßigkeiten-die-bei-geometrieaufgaben-oft-genutzt-werden"><i class="fa fa-check"></i>Gesetzmäßigkeiten, die bei Geometrieaufgaben oft genutzt werden</a></li>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#aufgaben"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html"><i class="fa fa-check"></i>Terme zusammenfassen</a>
+<ul>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#gleichartige-terme-zusammenfassen---3-äpfel-und-4-äpfel-sind-7-äpfel"><i class="fa fa-check"></i>Gleichartige Terme zusammenfassen - 3 Äpfel und 4 Äpfel sind 7 Äpfel</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#produktterme-vereinfachen---hier-wird-nur-multipliziert"><i class="fa fa-check"></i>Produktterme vereinfachen - hier wird nur multipliziert</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#vereinfachen-von-termen---jetzt-wird-auch-addiert-subtrahiert-und-dividiert"><i class="fa fa-check"></i>Vereinfachen von Termen - jetzt wird auch addiert, subtrahiert und dividiert</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausmultiplizieren-von-klammern"><i class="fa fa-check"></i>Ausmultiplizieren von Klammern</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#aufgaben-4"><i class="fa fa-check"></i>Aufgaben</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausdividieren-von-klammern"><i class="fa fa-check"></i>Ausdividieren von Klammern</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#aufgaben-5"><i class="fa fa-check"></i>Aufgaben</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausklammern-von-faktoren"><i class="fa fa-check"></i>Ausklammern von Faktoren</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#aufgaben-6"><i class="fa fa-check"></i>Aufgaben</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#multiplizieren-von-zwei-summen"><i class="fa fa-check"></i>Multiplizieren von zwei Summen</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#aufgaben-7"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-binomische-formeln.html"><a href="2-binomische-formeln.html"><i class="fa fa-check"></i><b>2</b> Binomische Formeln</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-8.html"><a href="aufgaben-8.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-dreieck.html"><a href="3-dreieck.html"><i class="fa fa-check"></i><b>3</b> Dreieck</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-9.html"><a href="aufgaben-9.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-parallelogramm.html"><a href="4-parallelogramm.html"><i class="fa fa-check"></i><b>4</b> Parallelogramm</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-10.html"><a href="aufgaben-10.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-trapez.html"><a href="5-trapez.html"><i class="fa fa-check"></i><b>5</b> Trapez</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-11.html"><a href="aufgaben-11.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-vieleck.html"><a href="6-vieleck.html"><i class="fa fa-check"></i><b>6</b> Vieleck</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-12.html"><a href="aufgaben-12.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-kreis.html"><a href="7-kreis.html"><i class="fa fa-check"></i><b>7</b> Kreis</a>
+<ul>
+<li class="chapter" data-level="" data-path="kreisumfang.html"><a href="kreisumfang.html"><i class="fa fa-check"></i>Kreisumfang</a></li>
+<li class="chapter" data-level="" data-path="kreisfläche.html"><a href="kreisfläche.html"><i class="fa fa-check"></i>Kreisfläche</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-13.html"><a href="aufgaben-13.html"><i class="fa fa-check"></i>Aufgaben</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-13.html"><a href="aufgaben-13.html#aufgaben-zum-umfang"><i class="fa fa-check"></i>Aufgaben zum Umfang</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-13.html"><a href="aufgaben-13.html#aufgaben-zum-flächeninhalt"><i class="fa fa-check"></i>Aufgaben zum Flächeninhalt</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-13.html"><a href="aufgaben-13.html#gemischte-aufgaben"><i class="fa fa-check"></i>Gemischte Aufgaben</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-trainingsraum.html"><a href="8-trainingsraum.html"><i class="fa fa-check"></i><b>8</b> Trainingsraum</a>
+<ul>
+<li class="chapter" data-level="" data-path="übersicht-über-alle-vorgekommenen-formeln.html"><a href="übersicht-über-alle-vorgekommenen-formeln.html"><i class="fa fa-check"></i>Übersicht über alle vorgekommenen Formeln</a></li>
+<li class="chapter" data-level="" data-path="trainingsaufgaben.html"><a href="trainingsaufgaben.html"><i class="fa fa-check"></i>Trainingsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-das-kannst-du-jetzt.html"><a href="9-das-kannst-du-jetzt.html"><i class="fa fa-check"></i><b>9</b> Das kannst du jetzt…</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="9-1-checkliste.html"><a href="9-1-checkliste.html"><i class="fa fa-check"></i><b>9.1</b> Checkliste</a></li>
+<li class="chapter" data-level="9.2" data-path="9-2-abschlussquiz.html"><a href="9-2-abschlussquiz.html"><i class="fa fa-check"></i><b>9.2</b> Abschlussquiz</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formeln und Flächen</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="aufgaben-13" class="section level2 unnumbered">
+<h2>Aufgaben</h2>
+<style type="text/css">
+
+.box {
+        display: flex;
+      }
+
+      .box > * {
+        flex: 1 1 0;
+      }
+</style>
+<div id="aufgaben-zum-umfang" class="section level3 unnumbered">
+<h3>Aufgaben zum Umfang</h3>
+<div id="aufgabe-1-12" class="section level4 unnumbered">
+<h4>Aufgabe 1</h4>
+<p>Berechne die fehlenden Größen.</p>
+<table>
+<thead>
+<tr class="header">
+<th><br></th>
+<th>a)</th>
+<th>b)</th>
+<th>c)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Radius <span class="math inline">\(r\)</span></td>
+<td><span class="math inline">\(17cm\)</span></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Durchmesser <span class="math inline">\(d\)</span></td>
+<td></td>
+<td></td>
+<td><span class="math inline">\(9,1 mm\)</span></td>
+</tr>
+<tr class="odd">
+<td>Umfang <span class="math inline">\(U\)</span></td>
+<td></td>
+<td><span class="math inline">\(3,2m\)</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Die fehlenden Größen lauten:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th><br></th>
+<th>a)</th>
+<th>b)</th>
+<th>c)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Radius <span class="math inline">\(r\)</span></td>
+<td><span class="math inline">\(17cm\)</span></td>
+<td><span class="math inline">\(0,509m\)</span></td>
+<td><span class="math inline">\(4,55mm\)</span></td>
+</tr>
+<tr class="even">
+<td>Durchmesser <span class="math inline">\(d\)</span></td>
+<td><span class="math inline">\(34cm\)</span></td>
+<td><span class="math inline">\(1,019m\)</span></td>
+<td><span class="math inline">\(9,1 mm\)</span></td>
+</tr>
+<tr class="odd">
+<td>Umfang <span class="math inline">\(U\)</span></td>
+<td><span class="math inline">\(106,81cm\)</span></td>
+<td><span class="math inline">\(3,2m\)</span></td>
+<td><span class="math inline">\(28,59mm\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rechnungen:</strong></p>
+<div class="box">
+<div>
+<p><strong>a)</strong></p>
+<p><strong>Durchmesser</strong></p>
+<p><span class="math inline">\(d=2 \cdot r = 2 \cdot 17 cm = 34 cm\)</span></p>
+<p><br></p>
+<p><strong>Umfang</strong></p>
+<p><span class="math inline">\(U = \pi \cdot d = \pi \cdot 34 cm \approx 106,81 cm\)</span></p>
+</div>
+<div>
+
+</div>
+<div>
+<p><strong>b)</strong></p>
+<p><strong>Durchmesser</strong></p>
+<p>Einsetzen führt zu folgender Gleichung:</p>
+<p><span class="math inline">\(3,2m = \pi \cdot d \quad\)</span></p>
+<p><br></p>
+<p>Auflösen ergibt:</p>
+<p><span class="math display">\[ \begin{align} 3,2m &amp;= \pi \cdot d \quad\quad |: \pi \\
+{}\\
+{3,2m \over \pi} &amp;= d \\
+{}\\
+\Rightarrow d &amp; \approx 1,019 m
+\end{align}\]</span>.</p>
+<p><br></p>
+<p><strong>Radius</strong></p>
+<p>Einsetzen führt zu folgender Gleichung:</p>
+<p><span class="math display">\[1,019 m =2 \cdot r\]</span></p>
+<p><br></p>
+<p>Auflösen ergibt:</p>
+<p><span class="math display">\[ \begin{align} 1,019 m &amp;=2 \cdot r \quad\quad |: 2 \\
+{}\\
+{1,019m \over 2} &amp;= r \\
+{}\\
+\Rightarrow r &amp; \approx 0,509 m
+\end{align}\]</span>.</p>
+</div>
+<div>
+
+</div>
+<div>
+<p><strong>c)</strong></p>
+<p><strong>Umfang</strong></p>
+<p><span class="math inline">\(U = \pi \cdot 9,1mm \approx 28,59 mm\)</span></p>
+<p><br></p>
+<p><strong>Radius</strong></p>
+<p>Einsetzen führt zu folgender Gleichung:</p>
+<p><span class="math display">\[9,1 mm =2 \cdot r\]</span></p>
+<p><br></p>
+<p>Auflösen ergibt:</p>
+<p><span class="math display">\[ \begin{align} 9,1 mm &amp;=2 \cdot r \quad\quad |: 2 \\
+{}\\
+{9,1mm \over 2} &amp;= r \\
+{}\\
+\Rightarrow r &amp; = 4,55mm
+\end{align}\]</span>.</p>
+</div>
+</div>
+</div>
+<div id="section-74" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-2-12" class="section level4 unnumbered">
+<h4>Aufgabe 2</h4>
+<p>Walter Hudson, einer der umfangreichsten Männer der Welt, hatte einen Bauchumfang von ca. <span class="math inline">\(2,80 m\)</span>. Passt er durch eine <span class="math inline">\(80 cm\)</span> breite Tür?</p>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Vorüberlegung</strong></p>
+<p>Um zu wissen, ob Walter Hudson durch die Tür passt, müsste man seinen Durchmesser kennen.</p>
+<p><strong>Gegeben</strong></p>
+<ol style="list-style-type: decimal">
+<li>Walter Hudons Bauchumfang mit <span class="math inline">\(2,80m = 280cm\)</span></li>
+<li>die Angabe, dass die Tür <span class="math inline">\(80 cm\)</span> breit ist.</li>
+</ol>
+<p>Für den Umfang eines Kreises gilt:</p>
+<p><span class="math display">\[ U = \pi \cdot d\]</span>.</p>
+<p><strong>Einsetzen</strong></p>
+<p>Setzt man den gegebenen Bauchumfang ein, ergibt sich folgende Gleichung:
+<span class="math display">\[ 280 cm = \pi \cdot d \]</span></p>
+<p><strong>Auflösen</strong></p>
+<p>Diese Gleichung muss man nach <span class="math inline">\(d\)</span> auflösen:
+<span class="math display">\[\begin{align} 280 cm &amp;= \pi \cdot d \quad\quad | : \pi\\
+{}\\
+{280cm \over \pi } &amp;= d\\
+{}\\
+\Rightarrow \quad d &amp;\approx 89 cm \quad &gt; 80 cm
+\end{align}\]</span></p>
+<p><strong>Antwort</strong></p>
+<p>Leider passt Walter Hudson nicht durch die Tür.</p>
+</div>
+<div id="section-75" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-3-8" class="section level4 unnumbered">
+<h4>Aufgabe 3</h4>
+<p><img src="Bilder/%C3%84quator.png" height="200" /></p>
+<!-- ![](./Bilder/Äquator.png) -->
+<ol style="list-style-type: lower-alpha">
+<li>Der Äquator hat eine Länge von etwa 40000 km. Wie groß ist der Erdradius <span class="math inline">\(r\)</span>?</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Vorüberlegung</strong></p>
+<p>Die Länge des Äquators entspricht dem Umfang der Erde.</p>
+<p><strong>Gegeben</strong></p>
+<p>Der Umfang der Erde: <span class="math inline">\(40000km\)</span></p>
+<p>Für den Umfang eines Kreises gilt:</p>
+<p><span class="math display">\[ U = \pi \cdot d\]</span>.</p>
+<p><strong>Einsetzen</strong></p>
+<p>Setzt man den gegebenen Erdumfang ein, ergibt sich folgende Gleichung:
+<span class="math display">\[ 40000km = \pi \cdot d \]</span></p>
+<p><strong>Auflösen</strong></p>
+<p>Diese Gleichung muss man nach <span class="math inline">\(d\)</span> auflösen:
+<span class="math display">\[\begin{align} 40000km &amp;= \pi \cdot d \quad\quad | : \pi\\
+{}\\
+{40000km \over \pi } &amp;= d\\
+{}\\
+\Rightarrow \quad d &amp;\approx 12732 km
+\end{align}\]</span></p>
+<p>Damit folgt für den Erdradius:</p>
+<p><span class="math display">\[ r = {1 \over 2} \cdot d = {1 \over 2} \cdot 12732 km \approx 6366 km\]</span></p>
+</div>
+<div id="section-76" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Ein 40000 km langes Seil, das am Äquator straff um die Erde gespannt war, wird geringfügig um 1m verlängert und so gestrafft, dass der Abstand von der Erde überall gleich ist. Kannst du jetzt unter diesem Seil hindurchkriechen?</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung)
+</button>
+<p>Für den Umfang eines Kreises gilt:</p>
+<p><span class="math display">\[U = 2 \cdot \pi \cdot r \]</span></p>
+<p><strong>Auflösen</strong></p>
+<p>Auflösen dieser Gleichung nach <span class="math inline">\(r\)</span> ergibt:</p>
+<p><span class="math display">\[ \begin{align} U &amp;= 2 \cdot \pi \cdot r \quad\quad | :2 \pi \\
+{}\\
+{U \over 2 \cdot \pi} &amp;= r
+\end{align}\]</span></p>
+<p><strong>Einsetzen</strong></p>
+<p>Setzt man nun die gegebenen Größen ein, ergibt sich:</p>
+<p><span class="math display">\[r = {4ooookm + 1m \over 2 \pi} = \underbrace{40000km \over 2\pi}_{Erdradius}+\underbrace{1m \over 2\pi}_{&quot;Zugewinn&quot;}\]</span></p>
+<p>Zum besseren Vorstellen hier noch eine Skizze:</p>
+<p><img src="Bilder/%C3%84quatorSeilSkizze.jpeg" /></p>
+<p>Das Seil steht also <span class="math inline">\({1 \over 2\pi}m \approx 0,16 cm\)</span> von der Erde ab.</p>
+<p>Zumindest ich bin zu groß um darunter durch zu passen ….</p>
+</div>
+<div id="section-77" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-4-5" class="section level4 unnumbered">
+<h4>Aufgabe 4</h4>
+<p>Die Räder eines Fahrrades haben einen Durchmesser von <span class="math inline">\(71cm\)</span>. Wie viele Umdrehungen macht jedes Rad pro km?</p>
+<div class='solution'>
+<button>
+Tipp
+</button>
+<p><img src="Bilder/RadUmdrehung.png" /></p>
+<p>Wenn sich das Rad einmal ganz dreht, bist du um den Radumfang weitergekommen. Wieviele Umdrehungen passen in einen Kilometer?</p>
+</div>
+<div id="section-78" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p>Bei einem Durchmesser von <span class="math inline">\(71cm\)</span> hat das Rad einen Umfang von</p>
+<p><span class="math display">\[U = d \cdot \pi =  71 cm \cdot \pi \approx 223cm = 2,23m\]</span>
+In einen Kilometer (<span class="math inline">\(1000m\)</span>) passen also</p>
+<p><span class="math display">\[{1000 m \over 2,23 m} \approx 448,43\]</span></p>
+<p>Radumdrehungen.</p>
+</div>
+<div id="section-79" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="section-80" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="section-81" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+</div>
+</div>
+<div id="aufgaben-zum-flächeninhalt" class="section level3 unnumbered">
+<h3>Aufgaben zum Flächeninhalt</h3>
+<div id="aufgabe-1-13" class="section level4 unnumbered">
+<h4>Aufgabe 1</h4>
+<p>Berechne die fehlenden Größen.</p>
+<table>
+<thead>
+<tr class="header">
+<th><br></th>
+<th>a)</th>
+<th>b)</th>
+<th>c)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Radius <span class="math inline">\(r\)</span></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Durchmesser <span class="math inline">\(d\)</span></td>
+<td></td>
+<td></td>
+<td><span class="math inline">\(7,543m\)</span></td>
+</tr>
+<tr class="odd">
+<td>Umfang <span class="math inline">\(U\)</span></td>
+<td></td>
+<td><span class="math inline">\(1,543km\)</span></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Flächeninhalt <span class="math inline">\(A\)</span></td>
+<td><span class="math inline">\(13cm²\)</span></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Die fehlenden Größen lauten:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th><br></th>
+<th>a)</th>
+<th>b)</th>
+<th>c)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Radius <span class="math inline">\(r\)</span></td>
+<td><span class="math inline">\(2,034 cm\)</span></td>
+<td><span class="math inline">\(0,246 km\)</span></td>
+<td><span class="math inline">\(3,772 m\)</span></td>
+</tr>
+<tr class="even">
+<td>Durchmesser <span class="math inline">\(d\)</span></td>
+<td><span class="math inline">\(4,068 cm\)</span></td>
+<td><span class="math inline">\(0,491 km\)</span></td>
+<td><span class="math inline">\(7,543m\)</span></td>
+</tr>
+<tr class="odd">
+<td>Umfang <span class="math inline">\(U\)</span></td>
+<td><span class="math inline">\(12,78 cm\)</span></td>
+<td><span class="math inline">\(1,543km\)</span></td>
+<td><span class="math inline">\(23,70 m\)</span></td>
+</tr>
+<tr class="even">
+<td>Flächeninhalt <span class="math inline">\(A\)</span></td>
+<td><span class="math inline">\(13cm²\)</span></td>
+<td><span class="math inline">\(0,189 km²\)</span></td>
+<td><span class="math inline">\(44,69 m²\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rechnungen:</strong></p>
+<div class="box">
+<div>
+<p><strong>a)</strong></p>
+<p><strong>Radius</strong></p>
+<p><span class="math inline">\(A = \pi \cdot r²\)</span> nach <span class="math inline">\(r\)</span> auflösen:</p>
+<p><span class="math display">\[\begin{align} A &amp;= \pi \cdot r² \quad |:\pi \\
+{}\\
+{A \over \pi} &amp;= r² \quad |\sqrt{\quad}\\
+{}\\
+\sqrt{A \over \pi} &amp;= r
+\end{align}\]</span></p>
+<p><span class="math inline">\(A=13cm²\)</span> einsetzen:</p>
+<p><span class="math display">\[\begin{align}r&amp;= \sqrt{13\;cm² \over \pi} \\
+{}\\
+&amp;\approx 2,034\;cm\end{align}\]</span></p>
+<p><strong>Durchmesser</strong></p>
+<p><span class="math display">\[\begin{align} d&amp;=2 \cdot r \\
+{}\\
+&amp;\approx 2 \cdot 2,034\;cm \\
+{}\\
+&amp;\approx 4,068\;cm\end{align}\]</span></p>
+<p><br></p>
+<p><strong>Umfang</strong></p>
+<p><span class="math display">\[\begin{align} U &amp;= \pi \cdot d \\
+{}\\
+&amp;\approx \pi \cdot  4,068\;cm \\
+{}\\
+&amp;\approx 12,78\;cm\end{align}\]</span></p>
+</div>
+<div>
+<p><strong>b)</strong></p>
+<p><strong>Durchmesser</strong></p>
+<p>Die Formel für den Flächeninhalt eines Kreises <span class="math inline">\(U= \pi \cdot d\)</span> beschreibt den Zusammenhang zwischen Durchmesser und Umfang des Kreises.</p>
+<p>Auflösen ergibt:</p>
+<p><span class="math display">\[ \begin{align} U &amp;= \pi \cdot d \quad |: \pi \\
+{}\\
+{U \over \pi} &amp;= d 
+\end{align}\]</span>.</p>
+<p><span class="math inline">\(U=1,543 km\)</span> einsetzen:</p>
+<p><span class="math display">\[\begin{align} d&amp;={1,543\;km \over \pi}\\ 
+{}\\
+&amp;\approx 0,491\;km \end{align}\]</span></p>
+<p><br></p>
+<p><strong>Radius</strong></p>
+<p><span class="math inline">\(d = 2 \cdot r\)</span> nach <span class="math inline">\(r\)</span> auflösen:</p>
+<p><span class="math display">\[\begin{align} d &amp;=2 \cdot r \quad |:2\\
+{}\\
+{d \over 2} &amp;= r
+\end{align}\]</span></p>
+<p><span class="math inline">\(0,491 km\)</span> einsetzen:</p>
+<p><span class="math display">\[r \approx {0,491 km \over 2} \approx 0,246 km\]</span></p>
+<p><br></p>
+<p><strong>Flächeninhalt</strong></p>
+<p><span class="math display">\[\begin{align} A &amp;= \pi \cdot r²\\
+{}\\
+&amp;\approx \pi \cdot (0,246\;km)² \\
+{}\\
+&amp;\approx 0,189\;km²\end{align}\]</span></p>
+</div>
+<div>
+<p><strong>c)</strong></p>
+<p><strong>Umfang</strong></p>
+<p><span class="math display">\[\begin{align} U &amp;= \pi \cdot d =\\
+{}\\
+ &amp;= \pi \cdot 7,543\;m =\\
+{}\\
+&amp;\approx 23,70\;m \end{align}\]</span></p>
+<p><br></p>
+<p><strong>Radius</strong></p>
+<p><span class="math inline">\(d = 2 \cdot r\)</span> nach <span class="math inline">\(r\)</span> auflösen:</p>
+<p><span class="math display">\[\begin{align} d &amp;=2 \cdot r \quad |:2\\
+{}\\
+{d \over 2} &amp;= r
+\end{align}\]</span></p>
+<p><span class="math inline">\(7,543 m\)</span> einsetzen:</p>
+<p><span class="math display">\[\begin{align} r &amp;= {7,543 m \over 2} \\
+{}\\
+&amp;\approx 3,772\;m \end{align}\]</span></p>
+<p><strong>Flächeninhalt</strong></p>
+<p><span class="math display">\[\begin{align} A &amp;= \pi \cdot r² \approx \\
+{}\\
+&amp;\approx \pi \cdot (3,772 m)²\approx\\
+{}\\
+&amp;\approx 44,69\;m²\end{align}\]</span></p>
+</div>
+</div>
+</div>
+<div id="section-82" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-2-13" class="section level4 unnumbered">
+<h4>Aufgabe 2</h4>
+<p>In einer Pizzeria gibt es Pizzen in zwei Größen. Die kleine Pizza hat einen Durchmesser von <span class="math inline">\(25cm\)</span>. Die Fläche der großen Pizza ist doppelt so groß wie die der kleinen Pizza. Berechne den Durchmesser der großen Pizza.</p>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Gegeben</strong></p>
+<ul>
+<li>Die kleine Pizza hat den Durchmesser <span class="math inline">\(d_{klein} = 25 cm\)</span>.</li>
+<li>Die Fläche der großen Pizza ist doppelt so groß wie die der kleinen Pizza, also: <span class="math inline">\(A_{groß}= 2 \cdot A_{klein}\)</span></li>
+</ul>
+<p><strong>Gesucht</strong></p>
+<p>Der Durchmesser der großen Pizza.</p>
+<p><strong>Vorgehen</strong></p>
+<p><span class="math inline">\(\quad \rightarrow \quad\)</span> Radius der kleinen Pizza ermitteln <span class="math inline">\(\quad \rightarrow \quad\)</span> Flächeninhalt der kleinen Pizza berechnen <span class="math inline">\(\quad \rightarrow \quad\)</span> Flächeninhalt der großen Pizza ermitteln <span class="math inline">\(\quad \rightarrow \quad\)</span> Radius der großen Pizza ermitteln <span class="math inline">\(\quad \rightarrow \quad\)</span> Durchmesser der großen Pizza berechnen</p>
+<p><strong>Radius der kleinen Pizza</strong></p>
+<p><span class="math display">\[ r_{klein} = {d_{klein} \over 2} = {25 cm \over 2} = 12,5 cm\]</span></p>
+<p><strong>Flächeninhalt der kleinen Pizza</strong></p>
+<p><span class="math display">\[ A_{klein}= \pi \cdot r^2_{klein} = \pi \cdot (12,5cm)² \approx 490,87 cm²\]</span></p>
+<p><strong>Flächeninhalt der großen Pizza</strong></p>
+<p><span class="math display">\[A_{groß} = 2 \cdot A_{klein} \approx 981,74 cm²\]</span></p>
+<p><strong>Radius der großen Pizza</strong></p>
+<p><span class="math display">\[r_{groß}= \sqrt{A_{groß} \over \pi} \approx \sqrt{312,5cm²} \approx 17,68 cm\]</span></p>
+<p><strong>Durchmesser der großen Pizza</strong></p>
+<p><span class="math display">\[d_{groß}= 2 \cdot r_{groß} \approx 35,36 cm\]</span></p>
+</div>
+<div id="section-83" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-3-9" class="section level4 unnumbered">
+<h4>Aufgabe 3</h4>
+<p>Untersuche an Zahlenbeispielen und begründe dann allgemein.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Wie verändert sich der Umfang bzw. der Flächeninhalt eines Kreises, wenn sich der Radius verdoppelt?</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Umfang</strong></p>
+<p>Für den Umfang eines Kreises gilt: <span class="math inline">\(U = 2 \cdot \pi \cdot r\)</span>.</p>
+<p>Verdoppelt man den Radius (beispielsweise von <span class="math inline">\(3cm\)</span> auf <span class="math inline">\(2 \cdot 3cm =6cm\)</span>), setzt man also statt des Radiuses <span class="math inline">\(r\)</span> den Radius <span class="math inline">\(2 \cdot r\)</span> in die Formel für den Umfang ein.</p>
+<p>Damit erhält man
+<span class="math display">\[ \begin{align} U_{neu} &amp;= 2 \cdot \pi \cdot (2 \cdot r)= \\
+                        {}\\
+                         &amp;= 2 \cdot \underbrace{2 \cdot \pi \cdot r}_{= U} =\\
+                         {}\\
+                         &amp;= 2 \cdot U \end{align}\]</span></p>
+<p>Bei doppeltem Radius verdoppelt sich also der Umfang.</p>
+<p><strong>Flächeninhalt</strong></p>
+<p>Für den Flächeninhalt eines Kreises gilt: <span class="math inline">\(A= \pi \cdot r^2\)</span>.</p>
+<p>Verdoppelt man den Radius (beispielsweise von <span class="math inline">\(3cm\)</span> auf <span class="math inline">\(2 \cdot 3cm =6cm\)</span>), setzt man also statt des Radiuses <span class="math inline">\(r\)</span> den Radius <span class="math inline">\(2 \cdot r\)</span> in die Formel für den Umfang ein.</p>
+<p>Damit erhält man</p>
+<p><span class="math display">\[ \begin{align} A_{neu} &amp;= \pi \cdot (2r)^2 =\\
+                          {}\\
+                         &amp;= \pi \cdot 4\cdot r^2 =\\
+                         {}\\
+                         &amp;= 4 \cdot \underbrace{\pi \cdot r^2}_{=A} =\\
+                         {}\\
+                         &amp;= 4 \cdot A \end{align}\]</span></p>
+<p>Bei doppeltem Radius vervierfacht sich also der Flächeninhalt.</p>
+</div>
+<div id="section-84" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Wie verändert sich der Umfang bzw. der Flächeninhalt eines Kreises, wenn man den Radius um <span class="math inline">\(10cm\)</span> vergrößert?</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Umfang</strong></p>
+<p>Für den Umfang eines Kreises gilt: <span class="math inline">\(U = 2 \cdot \pi \cdot r\)</span>.</p>
+<p>Vergrößert man den Radius eines Kreises um <span class="math inline">\(10cm\)</span> (z.B. von <span class="math inline">\(6cm\)</span> auf <span class="math inline">\(16cm\)</span>), bedeutet dies, dass man in die Formel für den Umfang eines Kreises statt des Radiuses <span class="math inline">\(r\)</span> den Radius <span class="math inline">\(r+10cm\)</span> einsetzt.</p>
+<p>Damit erhält man</p>
+<p><span class="math display">\[ \begin{align} U_{neu} &amp;= 2 \cdot \pi \cdot (r + 10cm) =\\
+{}\\
+                         &amp;= \underbrace{2 \cdot \pi \cdot r}_{=U} + 2 \cdot \pi \cdot 10cm =\\
+                         {}\\
+                         &amp;= U + 20\cdot\pi cm \end{align}\]</span></p>
+<p>Erhöht man den Radius um <span class="math inline">\(10cm\)</span>, erhöht sich der Umfang um <span class="math inline">\(20 \cdot \pi cm\)</span>.</p>
+<p><strong>Flächeninhalt</strong></p>
+<p>Für den Flächeninhalt eines Kreises gilt: <span class="math inline">\(A= \pi \cdot r^2\)</span>.</p>
+<p>Vergrößert man den Radius eines Kreises um <span class="math inline">\(10cm\)</span> (z.B. von <span class="math inline">\(6cm\)</span> auf <span class="math inline">\(16cm\)</span>), bedeutet dies, dass man in die Formel für den Flächeninhalt eines Kreises statt des Radiuses <span class="math inline">\(r\)</span> den Radius <span class="math inline">\(r+10cm\)</span> einsetzt.</p>
+<p>Damit erhält man</p>
+<p><span class="math display">\[ \begin{align} A_{neu} &amp;= \pi \cdot (r+10)^2 =\\
+{}\\
+                         &amp;= \pi \cdot (r^2+2\cdot r \cdot 10 + 100) =\\
+                         {}\\
+                         &amp;= \pi \cdot (r^2+ r \cdot  20 + 100) =\\
+                         {}\\
+                         &amp;= \underbrace{\pi \cdot r^2}_{=A} + \pi \cdot r \cdot 20 + \pi \cdot 100 =\\
+                         {}\\
+                         &amp;= A + 20 \pi \cdot (r+5) \end{align}\]</span></p>
+<p>Erhöht man den Radius um <span class="math inline">\(10cm\)</span>, erhöht sich der Flächeninhalt um <span class="math inline">\(20 \pi \cdot (r+5)cm²\)</span>.</p>
+</div>
+<div id="section-85" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-4-6" class="section level4 unnumbered">
+<h4>Aufgabe 4</h4>
+<!-- :::: {style="display: flex;"} -->
+<div class="box">
+<div>
+<p><br><br>
+Ein kreisrunder Froschteich hat den Radius <span class="math inline">\(r_1=7m\)</span>.</p>
+</div>
+<div>
+<p><img src="Bilder/WegUmTeich.png" /></p>
+</div>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Um den Teich wird ein 3m breiter Weg angelegt. Welchen Flächeninhalt hat der Weg.</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Gegeben</strong></p>
+<ul>
+<li>Der kleinere Kreis <span class="math inline">\(k_1\)</span> hat den Radius <span class="math inline">\(r_1 = 7m\)</span>.</li>
+<li>Die Breite <span class="math inline">\(b\)</span> des Weges beträgt <span class="math inline">\(3m\)</span>. Damit hat der größere Kreis <span class="math inline">\(k_2\)</span> den Radius <span class="math inline">\(r_2= 10m\)</span>.</li>
+</ul>
+<p><strong>Vorüberlegung</strong></p>
+<p>Zieht man den Flächeninhalt des kleineren Kreises vom Flächeninhalt des größeren Kreises ab, bleibt der Flächeninhalt des Weges übrig. Es gilt also:</p>
+<p><span class="math display">\[A_{Weg}=A_{k_2} - A_{k_1}\]</span></p>
+<p>Den Flächeninhalt eines Kreises berechnet man mit der Formel: <span class="math inline">\(A=\pi \cdot r^2\)</span></p>
+<p><strong>Aufstellen der Formel zur Berechnung des Flächeninhaltes des Weges</strong></p>
+<p><span class="math display">\[\begin{align} A_{Weg} &amp;=A_{k_2} - A_{k_1} =\\
+                        &amp;= \pi \cdot r^2_2 - \pi \cdot r^2_1 =\\
+                        &amp;= \pi \cdot (r^2_2 -r^2_1) \end{align}\]</span></p>
+<p><strong>Einsetzen</strong></p>
+<p><span class="math display">\[\begin{align} A_{Weg} &amp;= \pi \cdot (r^2_2 -r^2_1) =\\
+                        &amp;=\pi \cdot (100m² - 49m²) =\\
+                        &amp;= \pi \cdot 51m² \approx 160,22m² \end{align}\]</span></p>
+<p><strong>Antwort</strong></p>
+<p>Der Flächeninhalt des Weges beträgt ca. 160m².</p>
+</div>
+<div id="section-86" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Wie breit ist der Weg, wenn er einen Flächeninhalt von <span class="math inline">\(130 m²\)</span> hat?</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Gegeben</strong></p>
+<ul>
+<li>Der kleinere Kreis <span class="math inline">\(k_1\)</span> hat den Radius <span class="math inline">\(r_1 = 7m\)</span>.</li>
+<li>Der Weg hat einen Flächeninhalt von <span class="math inline">\(130 m²\)</span>.</li>
+</ul>
+<p><strong>Vorüberlegung</strong></p>
+<p>Die Breite des Weges ergibt sich aus der Differenz der beiden Radien: <span class="math inline">\(b=r_2 - r_1\)</span>.
+<span class="math inline">\(r_1\)</span> ist gegeben, <span class="math inline">\(r_2\)</span> dagegen muss noch ermittelt werden.</p>
+<p>Mit Hilfe des Radiuses <span class="math inline">\(r_1\)</span> des kleineren Kreises <span class="math inline">\(k_1\)</span> kann man den Flächeninhalt des kleineren Kreises berechnen: <span class="math inline">\(A_1 = \pi \cdot r^2_1\)</span>. Addiert man zu dieser Fläche die Fläche des Weges <span class="math inline">\(A_{Weg}\)</span>, ergibt sich der Flächeninhalt des größeren Kreises, also <span class="math inline">\(A_2= A_1+ A_{Weg}\)</span>.</p>
+<p>Hat man den Flächeninhalt des größeren Kreises, lässt sich der Radius <span class="math inline">\(r_2\)</span> des größeren Kreises bestimmen.</p>
+<p>Für den Radius eines Kreises mit Flächeninhalt <span class="math inline">\(A\)</span> gilt: <span class="math inline">\(r = \sqrt{A \over \pi}\)</span>.</p>
+<p><strong>Aufstellen der Formel zur Berechnung der Breite des Weges</strong>
+<span class="math display">\[ \begin{align} b &amp;= r_2 - r_1 = \\
+{}\\
+                         &amp;= \sqrt{A_2 \over \pi} - r_1=\\
+{}\\
+                         &amp;= \sqrt{A_1+  A_{Weg} \over \pi} - r_1= \\
+                     {}\\
+                     &amp; = \sqrt{\pi \cdot r^2_1+  A_{Weg} \over \pi} - r_1
+                     \end{align}\]</span></p>
+<p><strong>Einsetzen</strong></p>
+<p><span class="math display">\[ \begin{align} b &amp;=\sqrt{\pi \cdot r^2_1+  A_{Weg} \over \pi} - r_1=\\
+{}\\
+                    &amp;=\sqrt{\pi \cdot (7m)²+  130m² \over \pi} - 7m \approx\\
+                    {}\\
+                    &amp; \approx \sqrt{ 283,93804 m² \over \pi} - 7m \approx \\
+                    {}\\
+                    &amp; \approx \sqrt{90,3802852 m²} - 7m \approx 2,5 m \end{align}\]</span></p>
+<p><strong>Antwort</strong></p>
+<p>Der Weg ist ca.<span class="math inline">\(2,5m\)</span> breit.</p>
+</div>
+<div id="section-87" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-5-1" class="section level4 unnumbered">
+<h4>Aufgabe 5</h4>
+<div class="box">
+<div>
+<p><br><br>
+Aus einer quadratischen Platte mit der Seitenlänge <span class="math inline">\(a\)</span> wird eine Kreisscheibe herausgeschnitten (vgl. Skizze).</p>
+</div>
+<div>
+<p><img src="Bilder/KreisImQuadrat.png" /></p>
+</div>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Berechne den Verschnitt, wenn die Seite <span class="math inline">\(a\)</span> 4m lang ist.</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p>Ein Quadrat mit Seitenlänge <span class="math inline">\(4m\)</span> hat den Flächeninhalt <span class="math inline">\(A_{Quadrat}=16m²\)</span>.</p>
+<p>In diesem Fall hat der dem Quadrat einbeschriebene Kreis den Durchmesser <span class="math inline">\(d=4m\)</span> und somit den Radius <span class="math inline">\(r=2m\)</span>.</p>
+<p>Damit hat der Kreis einen Flächeninhalt von <span class="math inline">\(A_{Kreis}= \pi \cdot (2m)² = 4\pi\; m²\)</span>.</p>
+<p>Der Verschnitt ergibt sich als Differenz der Quadratfläche und der Kreisfläche:</p>
+<p><span class="math display">\[ \begin{align} Verschnitt &amp;= A_{Quadrat} - A_{Kreis} =\\
+{}\\
+                            &amp;= 16 \;m² - 4 \pi \;m² \\
+                            {}\\
+                            &amp; \approx 3,43\; m^2\end{align}\]</span></p>
+</div>
+<div id="section-88" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Stelle eine Formel auf, mit der man den Flächeninhalt des Verschnitts in Abhängigkeit von <span class="math inline">\(a\)</span> bestimmen kann.</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Vorüberlegung</strong></p>
+<p>Der Verschnitt ergibt sich als Differenz der Quadratfläche und der Kreisfläche. Für die Quadratfläche gilt: <span class="math inline">\(A_{Quadrat}=a²\)</span>.</p>
+<p>Der dem Quadrat einbeschriebene Kreis hat den Durchmesser <span class="math inline">\(d=a\)</span> und damit den Radius <span class="math inline">\(r= {a \over 2}\)</span>. Für seine Fläche gilt also: <span class="math inline">\(A_{Kreis} = \pi \cdot ({a \over 2})^2\)</span></p>
+<p><strong>Aufstellen der Formel</strong>
+<span class="math display">\[ \begin{align} Verschnitt &amp;= A_{Quadrat} - A_{Kreis} =\\
+{}\\
+                            &amp;= a^2 - \pi \cdot ({a \over 2})^2 = \\
+                            {}\\
+                            &amp; = a^2 - \pi \cdot {a^2 \over 4} = \\
+                            {}\\
+                            &amp; = a^2 - {\pi \cdot a^2 \over 4} = \\
+                            {}\\
+                            &amp; = a^2 - {\pi \over 4} \cdot a^2 =\\
+                            {}\\
+                            &amp; = a^2 \cdot (1 - {\pi \over 4})
+\end{align}\]</span></p>
+</div>
+<div id="section-89" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Wie viel Prozent der Gesamtfläche sind Verschnitt?</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Vorüberlegung</strong></p>
+<p>Gefragt ist also, welchen Anteil der Verschnitt an der Gesamtfläche hat.</p>
+<p><strong>Anteil des Verschnitts an der Gesamtfläche</strong></p>
+<p>Man muss folgenden Quotienten berechnen:</p>
+<p><span class="math display">\[ \begin{align} Anteil &amp;= {Verschnitt \over Quadratfläche} = \\
+{}\\
+&amp;= {a^2 \cdot (1 - {\pi \over 4}) \over a^2} = \\
+{}\\
+&amp;= 1- {\pi \over4} \approx 0,2146
+\end{align}\]</span></p>
+<p><strong>Antwort</strong></p>
+<p>Etwa 21,5% der Fläche sind Verschnitt.</p>
+</div>
+<div id="section-90" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="section-91" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="section-92" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+</div>
+</div>
+<div id="gemischte-aufgaben" class="section level3 unnumbered">
+<h3>Gemischte Aufgaben</h3>
+<div id="aufgabe-1-14" class="section level4 unnumbered">
+<h4>Aufgabe 1</h4>
+<p>Der Umfang eines Quadrates und eines Kreises beträgt jeweils 16 cm. Berechne und vergleiche die Flächeninhalte der beiden Figuren. Wie groß ist der Unterschied?</p>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Gegeben</strong></p>
+<ul>
+<li>Ein Quadrat mit dem Umfang 16 cm.</li>
+<li>Ein Kreis mit dem Umfang 16 cm.</li>
+</ul>
+<p><strong>Flächeninhalt des Quadrates</strong></p>
+<p>Ein Quadrat mit Umfang 16 cm hat eine Seitenlänge von <span class="math inline">\(16cm : 4 = 4cm\)</span>.</p>
+<p>Daraus ergibt sich ein Flächeninhalt von <span class="math inline">\(A_{Quadrat} = 4cm \cdot 4cm = 16cm²\)</span></p>
+<p><strong>Flächeninhalt des Kreises</strong></p>
+<p>Für den Radius eines Kreises mit einem Umfang von 16 cm gilt: <span class="math inline">\(r = {U \over 2 \cdot \pi} = {16cm \over 2 \cdot \pi} \approx 2,55cm\)</span>.</p>
+<p>Daraus ergibt sich ein Flächeninhalt von <span class="math inline">\(A_{Kreis}= \pi \cdot r^2 \approx \pi \cdot (2,55cm)^2 \approx 20,37 cm^2\)</span></p>
+<p><strong>Vergleich der beiden Flächeninhalte</strong></p>
+<p>Der Flächeninhalt des Kreises ist um <span class="math inline">\(A_{Kreis} - A_{Quadrat} \approx 20,37 cm² - 16 cm ² \approx 4,37 cm²\)</span> größer als der Flächeninhalt des Quadrates.</p>
+</div>
+<div id="section-93" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-2-14" class="section level4 unnumbered">
+<h4>Aufgabe 2</h4>
+<div class="box">
+<div>
+<p><br><br></p>
+<p>Die größte Pizza der Welt wurde 2012 in Italien gebacken.</p>
+<p>5 Pizzabäcker arbeiteten 48 Stunden lang an der Riesenpizza mit einem Durchmesser von 39,93m. Als Zutaten wurden 9900kg Mehl, 5000kg Tomatensoße, 4400kg Mozzarella und 125kg Parmesan verarbeitet.</p>
+</div>
+<div>
+<p><img src="Bilder/groesstePizza.jpg" height="200" /></p>
+</div>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Welchen Flächeninhalt besaß diese Pizza?</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p>Für den Radius der größten Pizza der Welt gilt:
+<span class="math display">\[r = {d \over 2} = {39,93\;m \over 2} = 19,965\; m\]</span></p>
+<p>Für den Flächeninhalt der größten Pizza der Welt gilt:
+<span class="math display">\[ \begin{align} A &amp;=\pi \cdot r^2 =\\
+                   &amp;= \pi \cdot (19,965\;m)² \approx \\
+                   &amp; \approx 1252,24\;m² \end{align}\]</span></p>
+</div>
+<div id="section-94" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Wie vielen Pizzen mit einem “normalen” Durchmesser von 30cm entspricht diese Fläche?</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p>Für den Radius einer “normalen” Pizza gilt:
+<span class="math display">\[r = {d \over 2} = {0,3\;m \over 2} = 0,15\; m\]</span></p>
+<p>Eine “normale” Pizza hat einen Flächeninhalt von
+<span class="math display">\[ \begin{align} A &amp;= \pi \cdot (0,15\;m)^2 \approx \\
+                    &amp; \approx 0,070686\;m ^2 \end{align} \]</span></p>
+<p>Wie viele “normale” Pizzen passen in die größte Pizza der Welt?</p>
+<p><span class="math display">\[1252,24\;m² : 0,070686\;m ^2 \approx 17715,5\]</span></p>
+<p>Die Fläche der größten Pizza der Welt entspricht etwa der 17715,5-fachen Fläche einer “normalen” Pizza.</p>
+</div>
+<div id="section-95" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Wie viele Männer wären notwendig gewesen, um diese Pizza auf einer Riesentafel zu umfassen? Rechne mit einer Spannweite von ungefähr 1,80m für jeden Mann.</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p>Für den Umfang der größten Pizza der Welt gilt:
+<span class="math display">\[ \begin{align} U &amp;= 2 \cdot \pi \cdot r =\\
+                   &amp;= 2 \cdot \pi \cdot 19,965\; m \approx \\
+                   &amp; \approx 125,44\;m \end{align}\]</span></p>
+<p>Berechnung der Anzahl der Männer mit Spannweite <span class="math inline">\(1,80\;m\)</span>, die nötig sind, um die Riesenpizza zu umfassen:</p>
+<p><span class="math display">\[125,44\;m : 1,80\;m \approx 70\]</span>
+70 Männer mit einer Spannweite von <span class="math inline">\(1,80\;m\)</span> hätten die Weltrekordpizza umfassen können.</p>
+</div>
+<div id="section-96" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-3-10" class="section level4 unnumbered">
+<h4>Aufgabe 3</h4>
+<div class="box">
+<div>
+<p><br><br>
+Eine hungrige Ziege wird mit einer ein Meter langen Schnur in der Mitte einer Wiese angepflockt. Damit sie die Wiese nach und nach abgrasen kann, wird die Schnur jeden Tag um einen Meter verlängert.</p>
+</div>
+<div>
+<p><img src="Bilder/ziegeamseil.png" height="200" /></p>
+</div>
+</div>
+<ol style="list-style-type: lower-alpha">
+<li>Welche Formen haben die Flächen, die jeden Tag neu hinzukommen? Fertige eine Skizze an, berechne die Flächen für den 1., 2. und 3. Tag und trage deine Ergebnisse in eine Tabelle ein.</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th><br></th>
+<th>Länge des Seils (in Metern)</th>
+<th>Neu hinzukommende Fläche (in m²)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2. Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>3. Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>4. Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>5. Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>6. Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>7. Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>8. Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>9. Tag</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>10. Tag</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class='solution'>
+<button>
+Tipp
+</button>
+<p><img src="Bilder/hungrigeZiege.png" /></p>
+</div>
+<div id="section-97" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p>Die erste Fläche <span class="math inline">\(A_1\)</span> ist ein Kreis mit dem Radius <span class="math inline">\(1\;m\)</span>.</p>
+<p>Alle weiteren Flächen sind Kreisringe mit der Breite <span class="math inline">\(1\;m\)</span>.</p>
+<p>Die Skizze findest du im Tipp1 zur Teilaufgabe 1a).</p>
+<p><strong>Berechnung der ersten drei Flächen</strong></p>
+<p><span class="math display">\[\begin{align} A_1 &amp; = \pi \cdot r^2_1 = \\
+                    &amp;= \pi \cdot (1m)^2 \approx 3,14\;m^2 \quad \end{align}\]</span></p>
+<p><span class="math display">\[\begin{align} A_2 &amp;= \pi \cdot r^2_2 - \pi \cdot r^2_1 =\\
+                    &amp;= \pi \cdot (2m)^2 - \pi\cdot 1\;m^2 =\\
+                    &amp;= \pi \cdot 4m^2 - \pi\;m^2 =\\
+                    &amp;= \pi \cdot (4m^2- 1m^2)=\\
+                    &amp;= 3\pi\;m^2\approx 9,42\;m^2
+\end{align}\]</span></p>
+<p><span class="math display">\[\begin{align} A_3 &amp;= \pi \cdot r^2_3 - \pi \cdot r^2_2 =\\
+                    &amp;= \pi \cdot (3m)^2 - 4\pi\;m^2 =\\
+                    &amp;= \pi \cdot 9m^2 - 4\pi\;m^2 =\\
+                    &amp;= \pi \cdot (9m^2-4m^2)=\\
+                    &amp;= 5\pi\;m^2\approx 15,71\;m^2
+\end{align}\]</span></p>
+<p>Folglich sieht die Tabelle jetzt so aus:</p>
+<table>
+<thead>
+<tr class="header">
+<th><br></th>
+<th>Länge des Seils (m)</th>
+<th>Neu hinzu- kommende Fläche (m²)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Tag</td>
+<td>1</td>
+<td>3,14</td>
+</tr>
+<tr class="even">
+<td>2. Tag</td>
+<td>2</td>
+<td>9,42</td>
+</tr>
+<tr class="odd">
+<td>3. Tag</td>
+<td>3</td>
+<td>15,71</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="section-98" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Stelle nun eine allgemeine Berechnungsformel für die am n-ten Tag neu hinzukommende Fläche <span class="math inline">\(A(n)\)</span> auf. Vervollständige mit Hilfe dieser Formel obige Tabelle.</li>
+</ol>
+<div class='solution'>
+<button>
+Tipp
+</button>
+<p>Eine Formel zur Berechnung eines Kreisrings gab es schon mal… In der Aufgabe mit dem Froschteich.</p>
+</div>
+<div id="section-99" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p>Das Seil, mit dem die Ziege angebunden ist, hat am n-ten Tag eine Länge von <span class="math inline">\(n\)</span> Metern. Am Vortag, also am (n-1)-ten Tag, hatte das Seil eine Länge von <span class="math inline">\((n-1)\)</span> Metern. Für die am n-ten Tag neu hinzukommende Fläche gilt somit:</p>
+<p><span class="math display">\[\begin{align} A_n &amp;= \pi \cdot r^2_n - \pi \cdot r^2_{n-1}=\\
+                    &amp;=\pi \cdot n^2 - \pi \cdot (n-1)^2=\\
+                    &amp;= \pi \cdot n^2 - \pi \cdot (n^2 - 2n + 1)= \\
+                    &amp;=\pi \cdot (n^2 - (n^2- 2n + 1))=\\
+                    &amp;=\pi \cdot (n^2- n^2+2n-1)=\\
+                    &amp;=\pi \cdot(2n-1)
+\end{align}\]</span></p>
+<p>Damit ergibt sich folgende Tabelle:</p>
+<table>
+<thead>
+<tr class="header">
+<th><br></th>
+<th>Länge des Seils (m)</th>
+<th>Neu hinzu- kommende Fläche (m²)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Tag</td>
+<td>1</td>
+<td>3,14</td>
+</tr>
+<tr class="even">
+<td>2. Tag</td>
+<td>2</td>
+<td>9,42</td>
+</tr>
+<tr class="odd">
+<td>3. Tag</td>
+<td>3</td>
+<td>15,71</td>
+</tr>
+<tr class="even">
+<td>4. Tag</td>
+<td>4</td>
+<td>21,99</td>
+</tr>
+<tr class="odd">
+<td>5. Tag</td>
+<td>5</td>
+<td>28,27</td>
+</tr>
+<tr class="even">
+<td>6. Tag</td>
+<td>6</td>
+<td>34,56</td>
+</tr>
+<tr class="odd">
+<td>7. Tag</td>
+<td>7</td>
+<td>40,84</td>
+</tr>
+<tr class="even">
+<td>8. Tag</td>
+<td>8</td>
+<td>47,12</td>
+</tr>
+<tr class="odd">
+<td>9. Tag</td>
+<td>9</td>
+<td>53,41</td>
+</tr>
+<tr class="even">
+<td>10. Tag</td>
+<td>10</td>
+<td>59,69</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="section-100" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Welche Fläche hat die Ziege nach 15 Tagen insgesamt abgegrast?</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p>Nach 15 Tagen hat die Ziege eine Kreisfläche mit einem Radius von <span class="math inline">\(15\)</span> Metern abgefressen. Also:</p>
+<p><span class="math display">\[\begin{align} F_{abgegrast} &amp;= \pi \cdot (15m)^2=\\
+                              &amp;= 225\pi\;m^2 \approx \\
+                              &amp;\approx 706,86\;m^2\end{align}\]</span></p>
+</div>
+<div id="section-101" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Wie viele Tage müssen mindestens vergehen, damit die Ziege insgesamt mehr als 150m² abgegrast hat?</li>
+</ol>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Vorüberlegung</strong>
+Gefragt ist, wann die abgefressene Kreisfläche größer oder gleich 150m² ist. Der Radius des Kreises entspricht dabei der Seillänge, aus der praktischer Weise ganz einfach auf die Anzahl der vergangenen Tage geschlossen werden kann. Das Seil hat ja am ersten Tag eine Länge von einem Meter, am zweiten Tag eine Länge von zwei Metern, am dritten Tag eine Länge von drei Metern usw. Am n-ten Tag hat es eine Länge von n Metern.</p>
+<p>Wenn man also den Radius des Kreises kennt, weiß man, wann die Ziege 150m² “gemäht” hat.</p>
+<p><strong>Berechnung der zu 150m² passenden Seillänge l</strong></p>
+<p><span class="math display">\[\begin{align} l &amp;= \sqrt{A\over\pi}\\
+                  &amp; = \sqrt{150\;m^2 \over \pi} \approx\\
+                  &amp;\approx 7\;m\end{align}\]</span></p>
+<p>Wenn das Seil <span class="math inline">\(7\;m\)</span> lang ist, hat die Ziege 150m² abgefressen. Es braucht also 7 Tage.</p>
+<p><strong>Alternative:</strong></p>
+<p>Addiere die in der Tabelle festgehaltenen Werte für die neu hinzugekommene Fläche, bis der Wert 150 übersteigt. Also:
+<span class="math inline">\(3,14 + 9,42 + 15,71 + 21,99 + ...\overset{?}{=}150\)</span></p>
+</div>
+<div id="section-102" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-4-7" class="section level4 unnumbered">
+<h4>Aufgabe 4</h4>
+<div class="box">
+<div>
+<p><br><br>
+Es ist ein heißer Sommer. Etwas Abkühlung ist gefragt. Auch Anna, die gerade 12 Jahre alt geworden ist, jammert über die Hitze. Da bringt ihre Oma aus dem Baumarkt ein rundes Planschbecken mit. Laut Verpackung benötigt es in aufgebautem Zustand <span class="math inline">\(2\;m^2\)</span> Fläche. Anna schimpft:" Das ist ja viel zu klein für mich!" Hat sie Recht?</p>
+</div>
+<div>
+<p><img src="Bilder/Planschbecken.jpg" height="200" /></p>
+</div>
+</div>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Vorüberlegung</strong></p>
+<p>Gesucht ist der Durchmesser des Planschbeckens. Kennt man ihn, kann man vielleicht abschätzen, ob sich Anna noch bequem in das Planschbecken legen kann.</p>
+<p><strong>Ermittlung des Durchmessers</strong></p>
+<p>Gegeben ist die Kreisfläche: <span class="math inline">\(A = 2\;m^2\)</span></p>
+<p>Folglich gilt für den Radius: <span class="math inline">\(r = \sqrt{A \over \pi} \approx 0,8\;m\)</span></p>
+<p>Damit ergibt sich ein Durchmesser von etwa <span class="math inline">\(1,60\;m\)</span></p>
+<p><strong>Antwort</strong></p>
+<p>Da Mädchen mit 12 Jahren im Durchschnitt <span class="math inline">\(1,49\;m\)</span> sind, kann man davon ausgehen, dass Anna zumindest bequem im Wasser liegen kann. Mit Schwimmen wird’s aber nix.</p>
+</div>
+<div id="section-103" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-5-2" class="section level4 unnumbered">
+<h4>Aufgabe 5</h4>
+<div class="box">
+<div>
+<p><br><br>
+Beim Torwandschießen versucht man, einen Fußball durch ein Loch zu schießen. Die Löcher haben dabei einen Durchmesser von <span class="math inline">\(55\;cm\)</span>. Ein Fußball hat einen Umfang von maximal <span class="math inline">\(70\;cm\)</span>. Wie viel Platz ist zwischen dem Ball und dem Rand des Loches, wenn man genau mittig trifft?</p>
+</div>
+<div>
+<p><img src="Bilder/Torwand.jpg" height="200" /></p>
+</div>
+</div>
+<div class='solution'>
+<button>
+Lösung
+</button>
+<p><strong>Berechnung des Fußballdurchmessers</strong></p>
+<p>Es gilt: <span class="math inline">\(d={U \over \pi} \approx 22,3\;cm\)</span></p>
+<p><strong>Vergleich der beiden Durchmesser</strong></p>
+<p>Der Durchmesser des Torwandloches ist um ungefähr <span class="math inline">\(55\;cm - 22,3\;cm \approx 32,7\;cm\)</span> größer als der Durchmesser des Balles.</p>
+<p><strong>Platz zwischen dem Ball und dem Rand des Loches</strong></p>
+<p>Da auf beiden Seiten gleich viel Abstand zum Rand des Torwandloches sein soll, muss man diese Differenz noch halbieren.</p>
+<p>Also sind rund um den Ball noch etwa <span class="math inline">\(32,7\;cm : 2 \approx 16,35\;cm\)</span> Platz.</p>
+</div>
+<div id="section-104" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<hr style="background-color:#3C6690;height:2px">
+</div>
+<div id="aufgabe-6-1" class="section level4 unnumbered">
+<h4>Aufgabe 6</h4>
+<div class="box">
+<div>
+<p>Es ist Corona. Trotzdem - zumindest die Abiturprüfungen können wohl nicht vom heimischen Rechner aus geschrieben werden. Nun stellt sich die Frage, wieviele Abiturienten gleichzeitig in der Aula ihre Abiturprüfung schreiben dürfen….</p>
+<p>Nimm an, die Aula sei quadratförmig und habe einen Flächeninhalt von <span class="math inline">\(100\;m^2\)</span>. Die Abiturienten müssen natürlich einen Abstand von 2m zueinander einhalten.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Wie viele Abiturienten passen unter diesen Bedingungen in die Aula? Erstelle zunächst eine Skizze!</p></li>
+<li><p>Die drei Mathelehrer, die mit der Bearbeitung dieser Aufgabe betraut wurden, kommen leider zu recht unterschiedlichen Ergebnissen und geraten darüber in Streit. Herr A. behauptet fest, es würden lediglich 25 Abiturient:innen in die Aula passen. Herr B. dagegen, berechnet die für jede:n benötigte Kreisfläche und folgert, dass 31 Abiturient:innen in die Aula passen. Bei Herrn C., der die punktförmigen Abiturient:innen auch an die Wand setzt, passen sogar 36 Personen in die Aula. Vollziehe die drei Ansätze nach! Erstelle zu jeder Situation entweder eine Skizze oder führe eine kurze Rechnung durch.</p></li>
+<li><p>Wie kann es sein, dass Herr C. 36 Abiturient:innen in die Aula stecken kann, obwohl Herr B. doch durch Rechnung gezeigt hat, dass nur 31 Personen unter Coronabedingungen in die Aula passen?</p></li>
+<li><p>Herr B., der niemandem mehr als die minimal benötigte Kreisfläche zugestehen möchte, ist erbost über die Flächenverschwendung von Herrn A. Wie viel Prozent der Fläche “verschwendet” Herr A.? Wie viel Prozent der Fläche “verschwendet” Herr C., von dessen Ansatz Herr B. begeistert ist?</p></li>
+</ol>
+</div>
+<div>
+<p><img src="Bilder/corona.png" height="200" /></p>
+</div>
+</div>
+<div class='solution'>
+<button>
+Lösung
+</button>
+</div>
+<div id="section-105" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+
+</div>
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="kreisfläche.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="8-trainingsraum.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlighting": true,
+"scroll_highlight": true
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

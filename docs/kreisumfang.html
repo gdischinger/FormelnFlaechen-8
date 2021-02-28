@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="de" xml:lang="de">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Kreisumfang | Formeln und Flächen</title>
+  <meta name="description" content="Kreisumfang | Formeln und Flächen" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Kreisumfang | Formeln und Flächen" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="./Bilder/tangram.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Kreisumfang | Formeln und Flächen" />
+  
+  
+  <meta name="twitter:image" content="./Bilder/tangram.png" />
+
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="7-kreis.html"/>
+<link rel="next" href="kreisfläche.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script>
+
+/* update total correct if #total_correct exists */
+update_total_correct = function() {
+  if (t = document.getElementById("total_correct")) {
+    t.innerHTML =
+      document.getElementsByClassName("correct").length + " of " +
+      document.getElementsByClassName("solveme").length + " correct";
+  }
+}
+
+/* solution button toggling function */
+b_func = function() {
+  var cl = this.parentElement.classList;
+  if (cl.contains('open')) {
+    cl.remove("open");
+  } else {
+    cl.add("open");
+  }
+}
+
+/* function for checking solveme answers */
+solveme_func = function(e) {
+  var real_answers = JSON.parse(this.dataset.answer);
+  var my_answer = this.value;
+  var cl = this.classList;
+  if (cl.contains("ignorecase")) {
+    my_answer = my_answer.toLowerCase();
+  }
+  if (cl.contains("nospaces")) {
+    my_answer = my_answer.replace(/ /g, "");
+  }
+  
+  if (my_answer !== "" & real_answers.includes(my_answer)) {
+    cl.add("correct");
+  } else {
+    cl.remove("correct");
+  }
+
+  // match numeric answers within a specified tolerance
+  if(this.dataset.tol > 0){
+    var tol = JSON.parse(this.dataset.tol);  
+    var matches = real_answers.map(x => Math.abs(x - my_answer) < tol)
+    if (matches.reduce((a, b) => a + b, 0) > 0) {
+      cl.add("correct");
+    } else {
+      cl.remove("correct");
+    }  
+  }
+
+  // added regex bit
+  if (cl.contains("regex")){
+    answer_regex = RegExp(real_answers.join("|"))
+    if (answer_regex.test(my_answer)) {
+      cl.add("correct");
+    }  
+  }
+  
+  update_total_correct();
+}
+
+window.onload = function() {
+  /* set up solution buttons */
+  var buttons = document.getElementsByTagName("button");
+
+  for (var i = 0; i < buttons.length; i++) {
+    if (buttons[i].parentElement.classList.contains('solution')) {
+      buttons[i].onclick = b_func;
+    }
+  }
+  
+  /* set up solveme inputs */
+  var solveme = document.getElementsByClassName("solveme");
+
+  for (var i = 0; i < solveme.length; i++) {
+    /* make sure input boxes don't auto-anything */
+    solveme[i].setAttribute("autocomplete","off");
+    solveme[i].setAttribute("autocorrect", "off");
+    solveme[i].setAttribute("autocapitalize", "off"); 
+    solveme[i].setAttribute("spellcheck", "false");
+    solveme[i].value = "";
+    
+    /* adjust answer for ignorecase or nospaces */
+    var cl = solveme[i].classList;
+    var real_answer = solveme[i].dataset.answer;
+    if (cl.contains("ignorecase")) {
+      real_answer = real_answer.toLowerCase();
+    }
+    if (cl.contains("nospaces")) {
+      real_answer = real_answer.replace(/ /g, "");
+    }
+    solveme[i].dataset.answer = real_answer;
+    
+    /* attach checking function */
+    solveme[i].onkeyup = solveme_func;
+    solveme[i].onchange = solveme_func;
+  }
+  
+  update_total_correct();
+}
+
+</script>
+
+
+
+<link rel="stylesheet" href="webex.css" type="text/css" />
+<link rel="stylesheet" href="style.css" type="text/css" />
+<link rel="stylesheet" href="toc.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><a href="https://gdischinger.github.io/FormelnFlaechen-8/"><img src="Bilder/tangram.png" alt="logo" width="60%" height="60%"style="margin: 15px 0 0 0"></a></center></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Was ist das?</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#aktuelles"><i class="fa fa-check"></i>Aktuelles</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#allgemeines"><i class="fa fa-check"></i>Allgemeines</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="1-vorwissen.html"><a href="1-vorwissen.html"><i class="fa fa-check"></i><b>1</b> Vorwissen</a>
+<ul>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html"><i class="fa fa-check"></i>Terme aufstellen</a>
+<ul>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#was-tun-wenn-ein-term-nicht-genug-ist"><i class="fa fa-check"></i>Was tun, wenn ein Term nicht genug ist?</a></li>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#gesetzmäßigkeiten-die-bei-geometrieaufgaben-oft-genutzt-werden"><i class="fa fa-check"></i>Gesetzmäßigkeiten, die bei Geometrieaufgaben oft genutzt werden</a></li>
+<li class="chapter" data-level="" data-path="terme-aufstellen.html"><a href="terme-aufstellen.html#aufgaben"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html"><i class="fa fa-check"></i>Terme zusammenfassen</a>
+<ul>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#gleichartige-terme-zusammenfassen---3-äpfel-und-4-äpfel-sind-7-äpfel"><i class="fa fa-check"></i>Gleichartige Terme zusammenfassen - 3 Äpfel und 4 Äpfel sind 7 Äpfel</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#produktterme-vereinfachen---hier-wird-nur-multipliziert"><i class="fa fa-check"></i>Produktterme vereinfachen - hier wird nur multipliziert</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#vereinfachen-von-termen---jetzt-wird-auch-addiert-subtrahiert-und-dividiert"><i class="fa fa-check"></i>Vereinfachen von Termen - jetzt wird auch addiert, subtrahiert und dividiert</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausmultiplizieren-von-klammern"><i class="fa fa-check"></i>Ausmultiplizieren von Klammern</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausdividieren-von-klammern"><i class="fa fa-check"></i>Ausdividieren von Klammern</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#ausklammern-von-faktoren"><i class="fa fa-check"></i>Ausklammern von Faktoren</a></li>
+<li class="chapter" data-level="" data-path="terme-zusammenfassen.html"><a href="terme-zusammenfassen.html#multiplizieren-von-zwei-summen"><i class="fa fa-check"></i>Multiplizieren von zwei Summen</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="2-binomische-formeln.html"><a href="2-binomische-formeln.html"><i class="fa fa-check"></i><b>2</b> Binomische Formeln</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-1.html"><a href="aufgaben-1.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="3-dreieck.html"><a href="3-dreieck.html"><i class="fa fa-check"></i><b>3</b> Dreieck</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-2.html"><a href="aufgaben-2.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="4-parallelogramm.html"><a href="4-parallelogramm.html"><i class="fa fa-check"></i><b>4</b> Parallelogramm</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-3.html"><a href="aufgaben-3.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="5-trapez.html"><a href="5-trapez.html"><i class="fa fa-check"></i><b>5</b> Trapez</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-4.html"><a href="aufgaben-4.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="6-vieleck.html"><a href="6-vieleck.html"><i class="fa fa-check"></i><b>6</b> Vieleck</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-5.html"><a href="aufgaben-5.html"><i class="fa fa-check"></i>Aufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="7-kreis.html"><a href="7-kreis.html"><i class="fa fa-check"></i><b>7</b> Kreis</a>
+<ul>
+<li class="chapter" data-level="" data-path="kreisumfang.html"><a href="kreisumfang.html"><i class="fa fa-check"></i>Kreisumfang</a></li>
+<li class="chapter" data-level="" data-path="kreisfläche.html"><a href="kreisfläche.html"><i class="fa fa-check"></i>Kreisfläche</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html"><i class="fa fa-check"></i>Aufgaben</a>
+<ul>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html#aufgaben-zum-umfang"><i class="fa fa-check"></i>Aufgaben zum Umfang</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html#aufgaben-zum-flächeninhalt"><i class="fa fa-check"></i>Aufgaben zum Flächeninhalt</a></li>
+<li class="chapter" data-level="" data-path="aufgaben-6.html"><a href="aufgaben-6.html#gemischte-aufgaben"><i class="fa fa-check"></i>Gemischte Aufgaben</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="8-trainingsraum.html"><a href="8-trainingsraum.html"><i class="fa fa-check"></i><b>8</b> Trainingsraum</a>
+<ul>
+<li class="chapter" data-level="" data-path="übersicht-über-alle-vorgekommenen-formeln.html"><a href="übersicht-über-alle-vorgekommenen-formeln.html"><i class="fa fa-check"></i>Übersicht über alle vorgekommenen Formeln</a></li>
+<li class="chapter" data-level="" data-path="trainingsaufgaben.html"><a href="trainingsaufgaben.html"><i class="fa fa-check"></i>Trainingsaufgaben</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="9-das-kannst-du-jetzt.html"><a href="9-das-kannst-du-jetzt.html"><i class="fa fa-check"></i><b>9</b> Das kannst du jetzt…</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="9-1-checkliste.html"><a href="9-1-checkliste.html"><i class="fa fa-check"></i><b>9.1</b> Checkliste</a></li>
+<li class="chapter" data-level="9.2" data-path="9-2-abschlussquiz.html"><a href="9-2-abschlussquiz.html"><i class="fa fa-check"></i><b>9.2</b> Abschlussquiz</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Formeln und Flächen</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="kreisumfang" class="section level2 unnumbered">
+<h2>Kreisumfang</h2>
+<style type="text/css">
+.box {
+        display: flex;
+      }
+
+      .box > * {
+        flex: 1 1 0;
+      }
+</style>
+<div class="figure">
+<img src="Bilder/Umfang.jpeg" alt="" />
+<p class="caption">Das machen wir heute!</p>
+</div>
+<div id="kreisuntersuchungen---ein-versuch" class="section level4 unnumbered">
+<h4>Kreisuntersuchungen - ein Versuch</h4>
+<blockquote>
+<p>Du brauchst:</p>
+<ul>
+<li>ein Maßband oder eine Stück Schnur und ein Lineal</li>
+<li>ein Blatt Papier und</li>
+<li>einen Bleistift.</li>
+</ul>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li><p>Geh bitte los und suche verschieden große Gegenstände, die kreisförmig sind bzw. mindestens eine kreisförmige Fläche haben.</p></li>
+<li><p>Miss jeweils Umfang und Durchmesser des Kreises und stelle deine Ergebnisse tabellarisch dar.</p></li>
+</ol>
+<div class='solution'>
+<button>
+Eure Messergebnisse
+</button>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Gegenstand
+</th>
+<th style="text-align:right;">
+Durchmesser (cm)
+</th>
+<th style="text-align:right;">
+Umfang (cm)
+</th>
+<th style="text-align:right;">
+Umfang/Durchmesser
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Kerze
+</td>
+<td style="text-align:right;">
+5.5
+</td>
+<td style="text-align:right;">
+18.0
+</td>
+<td style="text-align:right;">
+3.272727
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nachttischlampe
+</td>
+<td style="text-align:right;">
+12.0
+</td>
+<td style="text-align:right;">
+38.0
+</td>
+<td style="text-align:right;">
+3.166667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Basketball
+</td>
+<td style="text-align:right;">
+25.0
+</td>
+<td style="text-align:right;">
+75.0
+</td>
+<td style="text-align:right;">
+3.000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Spardose
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+35.0
+</td>
+<td style="text-align:right;">
+3.500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pringelspackung
+</td>
+<td style="text-align:right;">
+7.5
+</td>
+<td style="text-align:right;">
+24.5
+</td>
+<td style="text-align:right;">
+3.266667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nachttisch
+</td>
+<td style="text-align:right;">
+40.0
+</td>
+<td style="text-align:right;">
+125.0
+</td>
+<td style="text-align:right;">
+3.125000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wasserflasche
+</td>
+<td style="text-align:right;">
+8.0
+</td>
+<td style="text-align:right;">
+28.5
+</td>
+<td style="text-align:right;">
+3.562500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Becher
+</td>
+<td style="text-align:right;">
+8.0
+</td>
+<td style="text-align:right;">
+25.5
+</td>
+<td style="text-align:right;">
+3.187500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nutelladeckel
+</td>
+<td style="text-align:right;">
+8.0
+</td>
+<td style="text-align:right;">
+27.0
+</td>
+<td style="text-align:right;">
+3.375000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lampenschirm
+</td>
+<td style="text-align:right;">
+19.0
+</td>
+<td style="text-align:right;">
+60.0
+</td>
+<td style="text-align:right;">
+3.157895
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kerze
+</td>
+<td style="text-align:right;">
+7.6
+</td>
+<td style="text-align:right;">
+24.0
+</td>
+<td style="text-align:right;">
+3.157895
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Glas
+</td>
+<td style="text-align:right;">
+8.0
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+3.250000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pflanzentopf
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+33.0
+</td>
+<td style="text-align:right;">
+3.300000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fussball
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+66.0
+</td>
+<td style="text-align:right;">
+3.142857
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flasche
+</td>
+<td style="text-align:right;">
+8.1
+</td>
+<td style="text-align:right;">
+28.0
+</td>
+<td style="text-align:right;">
+3.456790
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Füller
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+15.0
+</td>
+<td style="text-align:right;">
+10.000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Handcreme
+</td>
+<td style="text-align:right;">
+3.8
+</td>
+<td style="text-align:right;">
+12.0
+</td>
+<td style="text-align:right;">
+3.157895
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kleber
+</td>
+<td style="text-align:right;">
+3.1
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+3.225807
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Müslischüssel
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+41.0
+</td>
+<td style="text-align:right;">
+3.153846
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tasse
+</td>
+<td style="text-align:right;">
+6.0
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+3.500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Schüssel
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+38.0
+</td>
+<td style="text-align:right;">
+2.923077
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Spitzer
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+14.0
+</td>
+<td style="text-align:right;">
+4.000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dose
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+31.5
+</td>
+<td style="text-align:right;">
+3.150000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kleber
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+3.333333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kleber 2.0
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+6.5
+</td>
+<td style="text-align:right;">
+3.250000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kordel
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+3.250000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Stiftehalter
+</td>
+<td style="text-align:right;">
+8.5
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+3.058823
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flasche
+</td>
+<td style="text-align:right;">
+7.0
+</td>
+<td style="text-align:right;">
+23.0
+</td>
+<td style="text-align:right;">
+3.285714
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flaschendeckel
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+<td style="text-align:right;">
+3.166667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tasse
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+2.222222
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Blumentopf
+</td>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+53.5
+</td>
+<td style="text-align:right;">
+3.343750
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Blumentopf 2.0
+</td>
+<td style="text-align:right;">
+17.5
+</td>
+<td style="text-align:right;">
+49.0
+</td>
+<td style="text-align:right;">
+2.800000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Deckel
+</td>
+<td style="text-align:right;">
+6.2
+</td>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+2.580645
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Münze
+</td>
+<td style="text-align:right;">
+1.8
+</td>
+<td style="text-align:right;">
+5.5
+</td>
+<td style="text-align:right;">
+3.055556
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lampenboden
+</td>
+<td style="text-align:right;">
+15.0
+</td>
+<td style="text-align:right;">
+42.0
+</td>
+<td style="text-align:right;">
+2.800000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flaschendeckel
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+3.333333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marmeladenglas
+</td>
+<td style="text-align:right;">
+8.5
+</td>
+<td style="text-align:right;">
+28.0
+</td>
+<td style="text-align:right;">
+3.294118
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flaschendeckel
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+15.0
+</td>
+<td style="text-align:right;">
+3.000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tasse
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+31.0
+</td>
+<td style="text-align:right;">
+6.200000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trinkflasche
+</td>
+<td style="text-align:right;">
+6.5
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+3.230769
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Glas
+</td>
+<td style="text-align:right;">
+8.5
+</td>
+<td style="text-align:right;">
+27.5
+</td>
+<td style="text-align:right;">
+3.235294
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Eierbecher
+</td>
+<td style="text-align:right;">
+6.5
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+3.230769
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kölschglas
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+17.0
+</td>
+<td style="text-align:right;">
+3.400000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Deckel
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+9.4
+</td>
+<td style="text-align:right;">
+3.133333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kleber
+</td>
+<td style="text-align:right;">
+2.5
+</td>
+<td style="text-align:right;">
+8.5
+</td>
+<td style="text-align:right;">
+3.400000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Spitzer
+</td>
+<td style="text-align:right;">
+3.7
+</td>
+<td style="text-align:right;">
+12.8
+</td>
+<td style="text-align:right;">
+3.459459
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Klebeband
+</td>
+<td style="text-align:right;">
+3.3
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+3.484849
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tasse
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+26.2
+</td>
+<td style="text-align:right;">
+2.911111
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kleiner Topf
+</td>
+<td style="text-align:right;">
+18.5
+</td>
+<td style="text-align:right;">
+59.0
+</td>
+<td style="text-align:right;">
+3.189189
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+mittlerer Topf
+</td>
+<td style="text-align:right;">
+22.5
+</td>
+<td style="text-align:right;">
+78.0
+</td>
+<td style="text-align:right;">
+3.466667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+großer Topf
+</td>
+<td style="text-align:right;">
+26.5
+</td>
+<td style="text-align:right;">
+84.0
+</td>
+<td style="text-align:right;">
+3.169811
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tasse
+</td>
+<td style="text-align:right;">
+8.5
+</td>
+<td style="text-align:right;">
+27.0
+</td>
+<td style="text-align:right;">
+3.176471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ölflasche
+</td>
+<td style="text-align:right;">
+8.0
+</td>
+<td style="text-align:right;">
+23.0
+</td>
+<td style="text-align:right;">
+2.875000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Schälchen
+</td>
+<td style="text-align:right;">
+11.0
+</td>
+<td style="text-align:right;">
+33.0
+</td>
+<td style="text-align:right;">
+3.000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Anspitzer
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+15.0
+</td>
+<td style="text-align:right;">
+3.750000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Klebeband
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+3.157895
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+großer Topf
+</td>
+<td style="text-align:right;">
+22.0
+</td>
+<td style="text-align:right;">
+64.0
+</td>
+<td style="text-align:right;">
+2.909091
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Griechischer Joghurt
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+24.0
+</td>
+<td style="text-align:right;">
+2.400000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wasserglas
+</td>
+<td style="text-align:right;">
+8.0
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+3.250000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tasse
+</td>
+<td style="text-align:right;">
+7.0
+</td>
+<td style="text-align:right;">
+22.0
+</td>
+<td style="text-align:right;">
+3.142857
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Schüssel
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+38.0
+</td>
+<td style="text-align:right;">
+2.923077
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Spitzer
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+14.0
+</td>
+<td style="text-align:right;">
+4.000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Licht
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+13.5
+</td>
+<td style="text-align:right;">
+3.375000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+An-Knopf
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+7.0
+</td>
+<td style="text-align:right;">
+3.500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Uhr
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+13.5
+</td>
+<td style="text-align:right;">
+3.375000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Spitzer
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+3.714286
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lampe
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+41.0
+</td>
+<td style="text-align:right;">
+3.153846
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flasche
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+<td style="text-align:right;">
+17.0
+</td>
+<td style="text-align:right;">
+3.777778
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tasse
+</td>
+<td style="text-align:right;">
+8.8
+</td>
+<td style="text-align:right;">
+29.0
+</td>
+<td style="text-align:right;">
+3.295454
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Packung
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+3.555556
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kaffe to go
+</td>
+<td style="text-align:right;">
+7.2
+</td>
+<td style="text-align:right;">
+24.5
+</td>
+<td style="text-align:right;">
+3.402778
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lavalam. Deckel
+</td>
+<td style="text-align:right;">
+3.9
+</td>
+<td style="text-align:right;">
+12.0
+</td>
+<td style="text-align:right;">
+3.076923
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pfanne
+</td>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+45.0
+</td>
+<td style="text-align:right;">
+2.812500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Glas
+</td>
+<td style="text-align:right;">
+7.5
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+3.466667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tasse
+</td>
+<td style="text-align:right;">
+4.5
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+6.666667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dose
+</td>
+<td style="text-align:right;">
+7.0
+</td>
+<td style="text-align:right;">
+34.0
+</td>
+<td style="text-align:right;">
+4.857143
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Deckel
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+3.200000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Topf
+</td>
+<td style="text-align:right;">
+21.5
+</td>
+<td style="text-align:right;">
+67.5
+</td>
+<td style="text-align:right;">
+3.139535
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Glas
+</td>
+<td style="text-align:right;">
+8.0
+</td>
+<td style="text-align:right;">
+25.5
+</td>
+<td style="text-align:right;">
+3.187500
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pfanne
+</td>
+<td style="text-align:right;">
+29.5
+</td>
+<td style="text-align:right;">
+89.0
+</td>
+<td style="text-align:right;">
+3.016949
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kleiner Topf
+</td>
+<td style="text-align:right;">
+15.0
+</td>
+<td style="text-align:right;">
+48.0
+</td>
+<td style="text-align:right;">
+3.200000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kleine Pfanne
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+76.0
+</td>
+<td style="text-align:right;">
+2.923077
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tasse
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+<td style="text-align:right;">
+29.5
+</td>
+<td style="text-align:right;">
+3.105263
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Becher
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+35.0
+</td>
+<td style="text-align:right;">
+3.500000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+großer Topf
+</td>
+<td style="text-align:right;">
+25.5
+</td>
+<td style="text-align:right;">
+76.0
+</td>
+<td style="text-align:right;">
+2.980392
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Duftkerze
+</td>
+<td style="text-align:right;">
+7.1
+</td>
+<td style="text-align:right;">
+23.3
+</td>
+<td style="text-align:right;">
+3.281690
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kakteentopf
+</td>
+<td style="text-align:right;">
+6.1
+</td>
+<td style="text-align:right;">
+21.0
+</td>
+<td style="text-align:right;">
+3.442623
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Trinkflaschenunterseite
+</td>
+<td style="text-align:right;">
+6.3
+</td>
+<td style="text-align:right;">
+22.0
+</td>
+<td style="text-align:right;">
+3.492063
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nachttischlampe
+</td>
+<td style="text-align:right;">
+3.2
+</td>
+<td style="text-align:right;">
+10.3
+</td>
+<td style="text-align:right;">
+3.218750
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Stiftehalter
+</td>
+<td style="text-align:right;">
+8.5
+</td>
+<td style="text-align:right;">
+26.5
+</td>
+<td style="text-align:right;">
+3.117647
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Spiegel
+</td>
+<td style="text-align:right;">
+17.0
+</td>
+<td style="text-align:right;">
+47.0
+</td>
+<td style="text-align:right;">
+2.764706
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Müslischale
+</td>
+<td style="text-align:right;">
+12.0
+</td>
+<td style="text-align:right;">
+35.0
+</td>
+<td style="text-align:right;">
+2.916667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tesafilmrolle
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+11.0
+</td>
+<td style="text-align:right;">
+2.750000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kopf 15 jährige Schwester
+</td>
+<td style="text-align:right;">
+30.0
+</td>
+<td style="text-align:right;">
+53.0
+</td>
+<td style="text-align:right;">
+1.766667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flasche
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+25.0
+</td>
+<td style="text-align:right;">
+2.777778
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kleber 1
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+10.0
+</td>
+<td style="text-align:right;">
+3.333333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flasche
+</td>
+<td style="text-align:right;">
+7.0
+</td>
+<td style="text-align:right;">
+23.5
+</td>
+<td style="text-align:right;">
+3.357143
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kleber 2
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+6.5
+</td>
+<td style="text-align:right;">
+3.250000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tasse
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:right;">
+2.222222
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kordel
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+3.250000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Stiftehalter
+</td>
+<td style="text-align:right;">
+8.5
+</td>
+<td style="text-align:right;">
+26.0
+</td>
+<td style="text-align:right;">
+3.058823
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flaschendeckel
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+9.5
+</td>
+<td style="text-align:right;">
+3.166667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Blumentopf 1
+</td>
+<td style="text-align:right;">
+17.5
+</td>
+<td style="text-align:right;">
+49.0
+</td>
+<td style="text-align:right;">
+2.800000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Blumentopf 2
+</td>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+53.5
+</td>
+<td style="text-align:right;">
+3.343750
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="section-66" class="section level4 unnumbered">
+<h4 class="unnumbered"></h4>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+Mittelwert Durchmesser (cm)
+</th>
+<th style="text-align:right;">
+Mittelwert Umfang (cm)
+</th>
+<th style="text-align:right;">
+Mittelwert Umfang/Durchmesser
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+10.06196
+</td>
+<td style="text-align:right;">
+31.24674
+</td>
+<td style="text-align:right;">
+3.150195
+</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Stelle deine Messergebnisse in einem Diagramm dar.</li>
+</ol>
+<p><img src="Formeln-und-Fl%C3%A4chen-8_files/figure-html/unnamed-chunk-85-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="zusammenfassung-unserer-ergebnisse" class="section level4 unnumbered">
+<h4>Zusammenfassung unserer Ergebnisse</h4>
+<ul>
+<li>Unsere Datenpunkte lassen sich gut durch eine Gerade approximieren. Der Umfang eines Kreises wächst also proportional zu seinem Durchmesser.</li>
+<li>Der von uns empirisch ermittelte Proportionalitätsfaktor ist ungefähr 3,15</li>
+<li>Das haben wir gut gemacht.</li>
+</ul>
+</div>
+<div id="hätten-wir-keine-messfehler-gemacht-dann" class="section level4 unnumbered">
+<h4>Hätten wir keine Messfehler gemacht, dann …</h4>
+<p>… hätten wir natürlich den wahren Proportionalitätsfaktor erhalten: <span class="math inline">\(\pi\)</span>.</p>
+<p>Es gilt nämlich: <span class="math display">\[{U \over d} = \pi\]</span>
+oder, wenn man die Gleichung nach <span class="math inline">\(U\)</span> auflöst:
+<span class="math display">\[U= \pi \cdot d = \pi \cdot 2 \cdot r\]</span>
+Der Durchmesser <span class="math inline">\(d\)</span> ist ja bekanntlich doppelt so lang wie der Radius <span class="math inline">\(r\)</span>.</p>
+<p><span class="math inline">\(\pi\)</span> ist eine irrationale Zahl. Ganz exakt lässt sie sich also nicht fassen. Bei den meisten Rechnungen genügt es, als Näherungswert den Wert <span class="math inline">\(\pi \approx 3,14\)</span> zu verwenden. Euer Taschenrechner kennt <span class="math inline">\(\pi\)</span>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="7-kreis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="kreisfläche.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "serif",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection",
+"scroll_highlighting": true,
+"scroll_highlight": true
+},
+"info": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

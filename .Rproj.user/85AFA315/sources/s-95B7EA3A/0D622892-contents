@@ -1,0 +1,22 @@
+book_filename: "Formeln und Flächen 8"
+output_dir: docs
+repo: "https://gdischinger.github.io/FormelnFlaechen-8/"
+before_chapter_script: ["_setup.R", "psyteachr_setup.R"]
+delete_merged_file: true
+rmd_files: ["index.Rmd",
+            "Binomische_Formeln.Rmd",            
+            "Dreieck.Rmd",
+            "Parallelogramm.Rmd",
+            "Trapez.Rmd",
+            "Vieleck.Rmd",
+            "Kreis.Rmd",
+            "Trainingsraum.Rmd",
+            "TesteDichSelbst.Rmd", 
+            #"14-ch14.Rmd",
+            #"15-ch15.Rmd",
+            #"16-ch16.Rmd",  
+            #"references.Rmd"
+            ]
+language:
+  label:
+    fig: "Abbildung "
