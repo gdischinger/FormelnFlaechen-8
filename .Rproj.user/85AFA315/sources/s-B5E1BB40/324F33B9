@@ -1,27 +1,27 @@
 {
-    "id": "19F9199E",
-    "path": "~/github/Lernpfade/8_FormelnUndFlächen/FormelnFlaechen-8/Kreis.Rmd",
-    "project_path": "Kreis.Rmd",
+    "id": "324F33B9",
+    "path": "~/github/Lernpfade/8_FormelnUndFlächen/FormelnFlaechen-8/Vorwissen.Rmd",
+    "project_path": "Vorwissen.Rmd",
     "type": "r_markdown",
-    "hash": "3012629789",
+    "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1614533541199.0,
+    "created": 1614539082200.0,
     "source_on_save": false,
     "relative_order": 2,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "196,309",
-        "scrollLine": "178"
+        "cursorPosition": "326,9",
+        "scrollLine": "307"
     },
     "folds": "",
-    "lastKnownWriteTime": 1614533603,
+    "lastKnownWriteTime": 1614523760,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1614533603557,
+    "last_content_update": 1614523760,
     "read_only": false,
     "read_only_alternatives": []
 }
